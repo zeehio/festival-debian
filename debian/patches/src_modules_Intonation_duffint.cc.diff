@@ -1,0 +1,14 @@
+Index: b/src/modules/Intonation/duffint.cc
+===================================================================
+--- a/src/modules/Intonation/duffint.cc
++++ b/src/modules/Intonation/duffint.cc
+@@ -41,6 +41,9 @@
+ #include "festival.h"
+ #include "intonation.h"
+ 
++using std::cout;
++using std::endl;
++
+ LISP FT_Intonation_Default_Utt(LISP utt)
+ {
+     return utt;

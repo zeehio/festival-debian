@@ -1,0 +1,52 @@
+Index: b/src/modules/UniSyn_diphone/UniSyn_diphone.cc
+===================================================================
+--- a/src/modules/UniSyn_diphone/UniSyn_diphone.cc
++++ b/src/modules/UniSyn_diphone/UniSyn_diphone.cc
+@@ -42,6 +42,8 @@
+ #include "us_diphone.h"
+ #include "festival.h"
+ 
++using std::endl;
++
+ extern USDiphIndex *diph_index;
+ LISP us_dbs = NIL;
+ LISP us_make_group_file(LISP lname, LISP params);
+@@ -114,7 +116,7 @@
+ 	d_index->grouped = true;
+ 	if (d_index->ts.open(d_index->index_file) != 0)
+ 	{
+-	    cerr << "US DB: can't open grouped diphone file " 
++	    std::cerr << "US DB: can't open grouped diphone file " 
+ 		<< d_index->index_file << endl;
+ 	    festival_error();
+ 	}
+@@ -123,10 +125,10 @@
+     }
+     else
+     {
+-	*cdebug << ":" << get_param_str("grouped",args,"") << ":" << endl;
+-	*cdebug << "index grouped:" << d_index->grouped << endl;
+-	*cdebug << "true:" << true << endl;
+-	*cdebug << "false:" << false << endl;
++	*cdebug << ":" << get_param_str("grouped",args,"") << ":" << endl
++	        << "index grouped:" << d_index->grouped << endl
++	        << "true:" << true << endl
++	        << "false:" << false << endl;
+ 	
+ 	d_index->coef_dir = get_param_str("coef_dir",args,"");
+ 	d_index->sig_dir = get_param_str("sig_dir",args,"");
+Index: b/src/modules/UniSyn_diphone/us_diphone_index.cc
+===================================================================
+--- a/src/modules/UniSyn_diphone/us_diphone_index.cc
++++ b/src/modules/UniSyn_diphone/us_diphone_index.cc
+@@ -43,6 +43,10 @@
+ #include "us_diphone.h"
+ #include "Phone.h"
+ 
++using std::cout;
++using std::cerr;
++using std::endl;
++
+ static bool US_full_coefs = false;
+ USDiphIndex *diph_index = 0;
+ extern LISP us_dbs;

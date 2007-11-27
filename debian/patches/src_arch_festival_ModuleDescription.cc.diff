@@ -1,0 +1,13 @@
+Index: b/src/arch/festival/ModuleDescription.cc
+===================================================================
+--- a/src/arch/festival/ModuleDescription.cc
++++ b/src/arch/festival/ModuleDescription.cc
+@@ -42,6 +42,8 @@
+ #include "siod.h"
+ #include "ModuleDescription.h"
+ 
++using namespace std;
++
+ // to make life easier
+ static inline EST_String S(const char *s) { return EST_String(s); }
+ 

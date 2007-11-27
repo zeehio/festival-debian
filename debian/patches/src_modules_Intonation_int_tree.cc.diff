@@ -1,0 +1,14 @@
+Index: b/src/modules/Intonation/int_tree.cc
+===================================================================
+--- a/src/modules/Intonation/int_tree.cc
++++ b/src/modules/Intonation/int_tree.cc
+@@ -47,6 +47,9 @@
+ #include "festival.h"
+ #include "intonation.h"
+ 
++using std::cerr;
++using std::endl;
++
+ enum lr_tpos {tp_start, tp_left, tp_mid, tp_right, tp_end};
+ 
+ static EST_String accent_specified(EST_Item *s);

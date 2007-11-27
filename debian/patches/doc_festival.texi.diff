@@ -1,0 +1,172 @@
+Index: b/doc/festival.texi
+===================================================================
+--- a/doc/festival.texi
++++ b/doc/festival.texi
+@@ -1,5 +1,7 @@
+ \input texinfo @c -*-texinfo-*-
+ @c %**start of header
++@dircategory Sound
++@dircategory Development
+ @setfilename festival.info
+ @settitle Festival Speech Synthesis System
+ @finalout
+@@ -936,14 +938,15 @@
+ @cindex initialization
+ @cindex installation initialization
+ @cindex @file{init.scm}
+-@cindex @file{siteinit.scm}
++@cindex @file{/etc/festival.scm}
++@cindex @file{/etc/festivalvars.scm}
+ Once compiled Festival may be further customized for particular sites.
+ At start up time Festival loads the file @file{init.scm} from its
+ library directory.  This file further loads other necessary files such
+ as phoneset descriptions, duration parameters, intonation parameters,
+ definitions of voices etc.  It will also load the files
+-@file{sitevars.scm} and @file{siteinit.scm} if they exist.  
+-@file{sitevars.scm} is loaded after the basic Scheme library functions
++@file{/etc/festivalvars.scm} and @file{/etc/festival.scm} if they exist.
++@file{/etc/festivalvars.scm} is loaded after the basic Scheme library functions
+ are loaded but before any of the festival related functions are
+ loaded.  This file is intended to set various path names before
+ various subsystems are loaded.  Typically variables such
+@@ -951,17 +954,17 @@
+ @code{voices_dir} (pointing to voice directories) should
+ be reset here if necessary.
+ 
+-@cindex change libdir at run-time
++@cindex change libdir or datadir at run-time
+ @cindex run-time configuration
+ @cindex @code{load-path}
+ The default installation will try to find its lexicons and voices
+ automatically based on the value of @code{load-path} (this is derived
+-from @code{FESTIVAL_HOME} at compilation time or by using the @code{--libdir}
++from @code{FESTIVAL_HOME} at compilation time or by using the @code{--datadir}
+ at run-time).  If the voices and lexicons have been unpacked into
+ subdirectories of the library directory (the default) then no site
+ specific initialization of the above pathnames will be necessary.
+ 
+-The second site specific file is @file{siteinit.scm}.  Typical examples
++The second site specific file is @file{/etc/festival.scm}.  Typical examples
+ of local initialization are as follows.  The default audio output method
+ is NCD's NAS system if that is supported as that's what we use normally
+ in CSTR.  If it is not supported, any hardware specific mode is the
+@@ -969,7 +972,7 @@
+ But that default is just a setting in @file{init.scm}.  If for example
+ in your environment you may wish the default audio output method to be
+ 8k mulaw through @file{/dev/audio} you should add the following line to
+-your @file{siteinit.scm} file
++your @file{/etc/festival.scm} file
+ @lisp
+ (Parameter.set 'Audio_Method 'sunaudio)
+ @end lisp
+@@ -990,7 +993,7 @@
+ for sample rate and file type.  When playing waveforms, Festival, by
+ default, outputs as unheadered waveform in native byte order.  In this
+ example you would set up the default audio playing mechanism in
+-@file{siteinit.scm} as follows
++@file{/etc/festival.scm} as follows
+ @lisp
+ (Parameter.set 'Audio_Method 'Audio_Command)
+ (Parameter.set 'Audio_Command "adplay -raw -r $SR $FILE")
+@@ -1036,12 +1039,12 @@
+ depend on many things but due to various licence (and resource)
+ restrictions you may only have some diphone/nphone databases available
+ in your installation.  The function name that is the value of
+-@code{voice_default} is called immediately after @file{siteinit.scm} is
++@code{voice_default} is called immediately after @file{/etc/festival.scm} is
+ loaded offering the opportunity for you to change it.  In
+ the standard distribution no change should be required.  If you
+ download all the distributed voices @code{voice_rab_diphone} is
+ the default voice.  You may change this for a site by adding
+-the following to @file{siteinit.scm} or per person by changing
++the following to @file{/etc/festival.scm} or per person by changing
+ your @file{.festivalrc}.  For example if you wish to
+ change the default voice to the American one @code{voice_ked_diphone}
+ @lisp
+@@ -1053,8 +1056,8 @@
+ @cindex @file{.festivalrc}
+ @cindex user initialization
+ A second level of customization is on a per user basis.  After loading
+-@file{init.scm}, which includes @file{sitevars.scm} and
+-@file{siteinit.scm} for local installation, Festival loads the file
++@file{init.scm}, which includes @file{/etc/festival.scm}
++for local installation, Festival loads the file
+ @file{.festivalrc} from the user's home directory (if it exists).  This
+ file may contain arbitrary Festival commands.    
+ 
+@@ -1085,7 +1088,9 @@
+ Copyright (C) University of Edinburgh, 1996-2003. All rights reserved.
+ For details type `(festival_warranty)'
+ festival> libdir
+-"/projects/festival/lib/"
++"/usr/lib/festival"
++festival> datadir
++"/usr/share/festival"
+ festival> ^D
+ @end example
+ This should show the pathname you set in your @file{config/config}.
+@@ -1106,7 +1111,7 @@
+ You have selected NAS as the audio output but have no server running on
+ that machine or your @code{DISPLAY} or @code{AUDIOSERVER} environment
+ variable is not set properly for your output device.  Either set these
+-properly or change the audio output device in @file{lib/siteinit.scm} as
++properly or change the audio output device in @file{lib/festival.scm} as
+ described above.
+ 
+ Ensure your audio device actually works the way you think it does.  On
+@@ -1136,7 +1141,7 @@
+ @code{voice_rab_diphone} (@file{festvox_rabxxxx.tar.gz}) is the default
+ voice and that @code{voice_ked_diphone} and @code{voice_don_diphone}
+ (@file{festvox_kedxxxx.tar.gz} and @file{festvox_don.tar.gz}) are
+-installed.  Also local settings in your @file{festival/lib/siteinit.scm}
++installed.  Also local settings in your @file{/etc/festival.scm}
+ may affect these tests.  However, after installation it may
+ be worth trying
+ @example
+@@ -4190,8 +4195,8 @@
+ This will save the waveform in the named file in the format specified
+ in the @code{Parameter} @code{Wavefiletype}.  All formats supported by
+ the Edinburgh Speech Tools are valid including @code{nist}, @code{esps},
+-@code{sun}, @code{riff}, @code{aiff}, @code{raw} and @code{ulaw}.  Note
+-the functions @code{utt.wave.rescale} and @code{utt.wave.resample} may
++@code{sun}, @code{riff}, @code{aiff}, @code{raw}, @code{alaw} and @code{ulaw}.
++Note the functions @code{utt.wave.rescale} and @code{utt.wave.resample} may
+ be used to change the gain and sample frequency of the waveform before
+ saving it.  A waveform may be imported into an existing utterance with
+ the function @code{utt.import.wave}.  This is specifically designed to
+@@ -5778,7 +5783,7 @@
+ they include a @file{/dev/dsp} (Soundblaster PRO for example).  This was
+ not dealt with properly in earlier versions of the system but now the
+ support automatically checks to see the sample width supported and uses
+-it accordingly.  8 bit at higher frequencies that 8K sounds better than
++it accordingly.  8 bit at higher frequencies than 8K sounds better than
+ straight 8k ulaw so this feature is useful.
+ 
+ @cindex Windows NT audio
+@@ -6500,7 +6505,7 @@
+ voices will be automatically searched for.  If this is not set it is set
+ automatically by appending @file{/voices/} to all paths in festival
+ @code{load-path}.  You may add new directories explicitly to this
+-variable in your @file{sitevars.scm} file or your own @file{.festivalrc}
++variable in your @file{/etc/festival.scm} file or your own @file{.festivalrc}
+ as you wish.
+ 
+ Each voice directory is assumed to be of the form
+@@ -6546,7 +6551,7 @@
+ This is only a recommended method to make adding new voices easier, it
+ may be ignored if you wish.  However we still recommend that even if you
+ use your own convetions for adding new voices you consider the autoload
+-function to define them in, for example, the @file{siteinit.scm} file or
++function to define them in, for example, the @file{/etc/festival.scm} file or
+ @file{.festivalrc}.  The autoload function takes three arguments:
+ a function name, a file containing the actual definiton and a comment.
+ For example a definition of voice can be done explicitly by 
+@@ -7996,7 +8001,7 @@
+ server.
+ @item --otype OUTPUTTYPE
+ If an output waveform file is to be used this specified the output type
+-of the file.  The default is @code{nist}, but, @code{ulaw},
++of the file.  The default is @code{nist}, but @code{alaw},
+ @code{riff}, @code{ulaw} and others as supported by the Edinburgh
+ Speech Tools Library are valid.  You may use raw too but note that
+ Festival may return waveforms of various sampling rates depending on the

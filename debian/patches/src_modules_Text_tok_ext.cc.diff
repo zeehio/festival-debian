@@ -1,0 +1,14 @@
+Index: b/src/modules/Text/tok_ext.cc
+===================================================================
+--- a/src/modules/Text/tok_ext.cc
++++ b/src/modules/Text/tok_ext.cc
+@@ -48,6 +48,9 @@
+ #include "lexicon.h"
+ #include "text.h"
+ 
++using std::cerr;
++using std::endl;
++
+ static int rhc = 10;
+ static int lhc = 10;
+ 

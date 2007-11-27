@@ -1,0 +1,13 @@
+Index: b/src/modules/Lexicon/lts_rules.cc
+===================================================================
+--- a/src/modules/Lexicon/lts_rules.cc
++++ b/src/modules/Lexicon/lts_rules.cc
+@@ -58,6 +58,8 @@
+ #include "festival.h"
+ #include "lts.h"
+ 
++using namespace std;
++
+ class LTS_Ruleset{
+   private:
+     EST_String p_name;

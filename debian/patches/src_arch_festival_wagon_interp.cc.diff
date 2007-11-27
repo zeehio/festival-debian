@@ -1,0 +1,15 @@
+Index: b/src/arch/festival/wagon_interp.cc
+===================================================================
+--- a/src/arch/festival/wagon_interp.cc
++++ b/src/arch/festival/wagon_interp.cc
+@@ -155,8 +155,8 @@
+ 	    return FALSE;
+     else 
+     {
+-	cerr << "Decision tree: unknown question operator: \"" << 
+-	    str_oper << "\"\n";
++	std::cerr << "Decision tree: unknown question operator: \"" << 
++	    str_oper << "\"" << std::endl;
+ 	festival_error();
+     }
+     return 0;

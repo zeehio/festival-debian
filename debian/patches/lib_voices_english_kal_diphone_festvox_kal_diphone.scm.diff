@@ -1,0 +1,6 @@
+Index: b/lib/voices/english/kal_diphone/festvox/kal_diphone.scm
+===================================================================
+--- /dev/null
++++ b/lib/voices/english/kal_diphone/festvox/kal_diphone.scm
+@@ -0,0 +1 @@
++(define voice_kal_diphone (lambda () t)) (provide 'kal_diphone)

@@ -1,0 +1,14 @@
+Index: b/src/main/festival_client.cc
+===================================================================
+--- a/src/main/festival_client.cc
++++ b/src/main/festival_client.cc
+@@ -51,6 +51,9 @@
+ typedef FILE *SERVER_FD;
+ #endif
+ 
++using std::cerr;
++using std::endl;
++
+ static void festival_client_main(int argc, char **argv);
+ static void copy_to_server(FILE *fdin,SERVER_FD serverfd);
+ static void ttw_file(SERVER_FD serverfd, const EST_String &file);

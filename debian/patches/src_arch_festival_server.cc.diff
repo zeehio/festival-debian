@@ -1,0 +1,13 @@
+Index: b/src/arch/festival/server.cc
+===================================================================
+--- a/src/arch/festival/server.cc
++++ b/src/arch/festival/server.cc
+@@ -54,6 +54,8 @@
+ #include "festival.h"
+ #include "festivalP.h"
+ 
++using namespace std;
++
+ #define DEFAULT_MAX_CLIENTS 10
+ 
+ /* The folloing gives a server that never forks */

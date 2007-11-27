@@ -1,0 +1,23 @@
+Index: b/src/modules/Text/text_modes.cc
+===================================================================
+--- a/src/modules/Text/text_modes.cc
++++ b/src/modules/Text/text_modes.cc
+@@ -52,6 +52,9 @@
+ #include "text.h"
+ #include "lexicon.h"
+ 
++using std::cerr;
++using std::endl;
++
+ static void um_apply_filter(const EST_String &filtername,
+ 			    const EST_String &infile,
+ 			    const EST_String &outname);
+@@ -60,7 +63,7 @@
+ {
+ 
+     volatile EST_String tmpname = make_tmp_filename();
+-    volatile EST_String inname = get_c_string(filename);
++    volatile EST_String inname(get_c_string(filename)); //fixed ftbfs with gcc-snapshot Debian bug: #441527
+     volatile EST_String filter;
+     volatile EST_TokenStream ts;
+     volatile LISP func;

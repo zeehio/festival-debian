@@ -1,0 +1,14 @@
+Index: b/src/main/audsp.cc
+===================================================================
+--- a/src/main/audsp.cc
++++ b/src/main/audsp.cc
+@@ -51,6 +51,9 @@
+ #include "EST.h"
+ #include "EST_unix.h"
+ 
++using std::cerr;
++using std::endl;
++
+ #ifdef NO_SPOOLER
+ 
+ int main(int argc, char **argv)

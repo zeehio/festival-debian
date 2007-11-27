@@ -1,0 +1,14 @@
+Index: b/src/arch/festival/wfst.cc
+===================================================================
+--- a/src/arch/festival/wfst.cc
++++ b/src/arch/festival/wfst.cc
+@@ -40,6 +40,9 @@
+ #include "festival.h"
+ #include "festivalP.h"
+ 
++using std::cout;
++using std::endl;
++
+ static LISP wfst_loaded_list = NIL;
+ static EST_WFST *load_wfst(const EST_String &filename);
+ static LISP add_wfst(const EST_String &name,EST_WFST *n);

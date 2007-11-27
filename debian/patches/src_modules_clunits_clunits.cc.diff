@@ -1,0 +1,14 @@
+Index: b/src/modules/clunits/clunits.cc
+===================================================================
+--- a/src/modules/clunits/clunits.cc
++++ b/src/modules/clunits/clunits.cc
+@@ -84,6 +84,9 @@
+ static EST_String static_tscore = "local_target_cost";
+ static EST_String static_cscore = "cummulative_unit_score";
+ 
++using std::cerr;
++using std::endl;
++
+ static void setup_clunits_params();
+ static EST_VTCandidate *TS_candlist(EST_Item *s,EST_Features &f);
+ static EST_VTPath *TS_npath(EST_VTPath *p,EST_VTCandidate *c,EST_Features &f);
