@@ -1,4 +1,6 @@
 *.[oa]
 config.sub
 config.cache
+config.guess
 .pc
+bin/
