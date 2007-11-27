@@ -1,0 +1,78 @@
+#!/usr/bin/make -f
+
+FT := $(shell pwd)/debian/festival
+FDT := $(shell pwd)/debian/festival-dev
+
+#export DH_VERBOSE=1
+export QUILT_PATCHES=./debian/patches
+
+include /usr/share/quilt/quilt.make
+
+build: build-stamp
+build-stamp: patch
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
+endif
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
+	$(MAKE)
+	cd doc && $(MAKE) festival.info
+	touch $@
+
+clean: unpatch
+	$(RM) config/config
+	quilt push config_config.diff
+	dh_testdir
+	dh_testroot
+	dh_clean
+	[ ! -f Makefile ] || $(MAKE) clean
+	quilt pop -a
+	rm -f build-stamp
+
+	find . -name make.depend -print0 | xargs -0r $(RM)
+	find . -name make.include -print0 | xargs -0r $(RM)
+	find bin/ \( -name SCCS -o -name RCS -o -name CVS \) -prune \
+		-o -type f ! -name Makefile -print0 | xargs -0r $(RM)
+	rm -rf doc/*.1 doc/festfeat.texi doc/festvars.texi doc/festfunc.texi \
+	       doc/info .pc
+	rm -f config/modincludes.inc config/system.mak
+	rm -f bin/festival*
+
+	#we are removing config.* since, they are unused in Debian
+	$(RM) config.sub config.guess config.log config.status config.cache
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	install -D -m 0644 $(CURDIR)/debian/festival.default \
+			   $(CURDIR)/debian/festival/etc/default/festival
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir -a
+	dh_testroot -a
+	dh_installchangelogs -a -k NEWS
+	dh_installdocs -a README ACKNOWLEDGMENTS
+	dh_install
+	dh_installcatalogs -a
+	dh_installman -pfestival doc/festival.1 doc/festival_client.1 doc/text2wave.1
+	dh_installinfo -pfestival doc/info/festival.info*
+	dh_installexamples -pfestival examples/* -Xexamples/text2wave
+	dh_installinit -pfestival
+	dh_strip -a
+	dh_link -a
+	dh_compress -a
+	dh_fixperms -a
+	dh_installdeb -a
+	dh_shlibdeps -a
+	dh_gencontrol -a -u-isp
+	dh_md5sums -a
+	dh_builddeb -a
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

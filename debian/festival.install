@@ -1,0 +1,12 @@
+src/main/festival		usr/bin
+src/main/festival_client 	usr/bin
+lib/etc/unknown_DebianGNULinux/audsp			usr/lib/festival
+lib/*.scm 			usr/share/festival
+lib/sable-latin.ent		usr/share/sgml/festival
+lib/Sable.v0_2.dtd		usr/share/sgml/festival
+lib/Singing.v0_1.dtd 		usr/share/sgml/festival
+lib/festival.el 		usr/share/emacs/site-lisp
+lib/*gram* 			usr/share/festival
+debian/50festival.el 		etc/emacs/site-start.d
+debian/festival.scm 		etc
+examples/text2wave 		usr/bin

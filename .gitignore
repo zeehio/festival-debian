@@ -1,3 +1,4 @@
 *.[oa]
 config.sub
 config.cache
+.pc
