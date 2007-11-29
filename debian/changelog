@@ -2,6 +2,7 @@ festival (1.96~beta-3) unstable; urgency=low
 
   * debian/control:
     + Add Vcs-Git and Vcs-Browser.
+    + Update Homepage.
   * debian/patches:
     + Refresh all patches.
     + Fix the doc_festval.texi.diff to add info section
