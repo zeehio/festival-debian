@@ -1,5 +1,6 @@
 festival (1.96~beta-3) unstable; urgency=low
 
+  [ Kumar Appaiah ]
   * debian/control:
     + Add Vcs-Git and Vcs-Browser.
     + Update Homepage.
@@ -8,7 +9,11 @@ festival (1.96~beta-3) unstable; urgency=low
     + Fix the doc_festval.texi.diff to add info section
       and get rid of the lintian warning.
 
- -- Kumar Appaiah <akumar@ee.iitm.ac.in>  Tue, 27 Nov 2007 10:39:11 +0530
+  [ Kartik Mistry ]
+  * debian.control:
+    + Updated Standards-Version to 3.7.3
+
+ -- Kartik Mistry <kartik.mistry@gmail.com>  Sun, 09 Dec 2007 18:00:24 +0530
 
 festival (1.96~beta-2) unstable; urgency=low
 
