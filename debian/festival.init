@@ -20,7 +20,9 @@
 #                    system-wide server process
 ### END INIT INFO
 
+[ -r /etc/default/festival ] && . /etc/default/festival
 if [ "$RUN_FESTIVAL" != yes ]; then
+	echo Not starting festival server, as /etc/default/festival does not have RUN_FESTIVAL=yes.
 	exit 0
 fi
 

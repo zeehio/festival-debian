@@ -1,13 +1,18 @@
-festival (1.96~beta-4) unstable; urgency=low
+festival (1.96~beta-4) UNRELEASED; urgency=low
 
-  [Kumar Appaiah]
+  [ Kumar Appaiah ]
   * debian/control:
     + Updated Homepage entry
 
-  [Kartik Mistry]
+  [ Kartik Mistry ]
   * debian/control:
     + Updated Standard-Versions to 3.7.3
 
+  [ Kumar Appaiah ]
+  * debian/festival.init:
+    + Source /etc/default/festival for boot time
+      startup setting. (Closes: #455404)
+  
  -- Kartik Mistry <kartik.mistry@gmail.com>  Sun, 09 Dec 2007 20:56:22 +0530
 
 festival (1.96~beta-3) unstable; urgency=low
