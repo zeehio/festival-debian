@@ -1,3 +1,10 @@
+festival (1.96~beta-5) unstable; urgency=low
+
+  * debian/shlibs.local:
+    + Added to provide a versioned dependency on libestools1.2.
+
+ -- Kumar Appaiah <akumar@ee.iitm.ac.in>  Wed, 16 Jan 2008 09:00:50 +0530
+
 festival (1.96~beta-4) unstable; urgency=low
 
   [ Kumar Appaiah ]
