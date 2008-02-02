@@ -1,2 +1,2 @@
-# Set RUN_FESTIVAL=yes to start festival at boot time.
-RUN_FESTIVAL=no
+# Set RUN_FESTIVAL=no to avoid starting festival at boot time.
+RUN_FESTIVAL=yes
