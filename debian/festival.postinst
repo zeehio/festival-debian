@@ -7,6 +7,17 @@ if dpkg --compare-versions "$2" lt "1.4.3-18"; then
        rm -f /etc/rc0.d/K20festival /etc/rc6.d/K20festival
 fi
 
+if dpkg --compare-versions "$2" lt "1.96~beta-5"; then
+if [ -x "/etc/init.d/festival" ]; then
+    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+	invoke-rc.d festival stop || true
+    else
+	/etc/init.d/festival stop || true
+    fi
+fi
+
+fi
+
 # Create festival user if it doesn't already exist.
 if ! getent passwd festival >/dev/null; then
        adduser festival --quiet --system --ingroup audio --no-create-home

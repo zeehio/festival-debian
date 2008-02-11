@@ -1,3 +1,14 @@
+festival (1.96~beta-6) unstable; urgency=low
+
+  * debian/festival.init, debian/festival.ostinst:
+    + Fix to detect stop running instance before restart.
+      (Closes: #465094). Thanks to Wolfgang Weisselberg
+      for the report.
+  * debian/control:
+    + Remove Debian revision from libestools1.2 dependency.
+  
+ -- Kumar Appaiah <akumar@ee.iitm.ac.in>  Mon, 11 Feb 2008 20:05:19 +0530
+
 festival (1.96~beta-5) unstable; urgency=low
 
   * debian/shlibs.local:

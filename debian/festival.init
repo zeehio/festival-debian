@@ -20,8 +20,10 @@
 #                    system-wide server process
 ### END INIT INFO
 
+set -e
+
 [ -r /etc/default/festival ] && . /etc/default/festival
-if [ "$RUN_FESTIVAL" != yes ]; then
+if [ "$RUN_FESTIVAL" != yes ] && [ "$1" != "stop" ]; then
 	echo Not starting festival server, as /etc/default/festival does not have RUN_FESTIVAL=yes.
 	exit 0
 fi
@@ -29,8 +31,6 @@ fi
 # NOTE: Not just anybody can connect to your server; the list of allowed
 # hostnames is a regexp. Check /usr/share/festival/festival.scm for more
 # helpful comments; add your settings to /etc/festival.scm.
-
-set -e
 
 DAEMON=/usr/bin/festival
 REALPROC=/usr/bin/festival
