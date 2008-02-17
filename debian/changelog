@@ -1,13 +1,20 @@
-festival (1.96~beta-6) unstable; urgency=low
+festival (1.96~beta-6) unstable; urgency=high
 
-  * debian/festival.init, debian/festival.ostinst:
-    + Fix to detect stop running instance before restart.
-      (Closes: #465094). Thanks to Wolfgang Weisselberg
-      for the report.
+  * Fix root security hole. Thanks to Tim Brown.
+    + debian/festival.init: Read festival.scm upon start.
+      (Closes: #466146)
   * debian/control:
-    + Remove Debian revision from libestools1.2 dependency.
+    + Remove Debian revision from speech-tools dependency.
+  * debian/festival.scm:
+    + Add sane default values for server. The festival
+      init script now uses these values while starting the
+      server.
+  * debian/README.Debian:
+    + Document some changes on daemon mode.
+  * debian/templates, debian/config, debian/festival.postinst:
+    + Ask for server password during install.
   
- -- Kumar Appaiah <akumar@ee.iitm.ac.in>  Mon, 11 Feb 2008 20:05:19 +0530
+ -- Kumar Appaiah <akumar@ee.iitm.ac.in>  Sun, 17 Feb 2008 06:45:30 +0530
 
 festival (1.96~beta-5) unstable; urgency=low
 

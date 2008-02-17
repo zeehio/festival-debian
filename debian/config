@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+
+# grab selected config values from the config file and store them
+# in debconf's database
+
+# first grab existing value (keep config file's existing value)
+CONFIG_FILE=/etc/festival.scm
+
+# to help security, let password be entered afresh each time
+# (and don't display the value left in the debconf database of
+# "password written to config file")
+db_set festival/server_passwd ""
+
+db_input critical festival/server_passwd || true
+
+db_go || true
+db_stop || true

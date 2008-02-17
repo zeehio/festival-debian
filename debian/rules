@@ -29,6 +29,7 @@ clean: unpatch
 	[ ! -f Makefile ] || $(MAKE) clean
 	quilt pop -a
 	rm -f build-stamp
+	debconf-updatepo
 
 	find . -name make.depend -print0 | xargs -0r $(RM)
 	find . -name make.include -print0 | xargs -0r $(RM)
@@ -59,6 +60,7 @@ binary-arch: build install
 	dh_installchangelogs -a -k NEWS
 	dh_installdocs -a README ACKNOWLEDGMENTS
 	dh_install
+	dh_installdebconf
 	dh_installcatalogs -a
 	dh_installman -pfestival doc/festival.1 doc/festival_client.1 doc/text2wave.1
 	dh_installinfo -pfestival doc/info/festival.info*

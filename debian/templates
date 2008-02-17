@@ -1,0 +1,7 @@
+Template: festival/server_passwd
+Type: string
+Default: your_festival_passwd
+_Description: Server password:
+ In order to secure the festival server from unauthorized access,
+ you must enter a password here which can be used to ensure
+ that clients are not allowed access without authentication.

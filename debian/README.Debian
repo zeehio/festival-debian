@@ -16,9 +16,13 @@ Festival for Debian
   users. Please take care and don't allow server other than localhost or
   127.0.0.1 or trusted users.
 
-  We have festival daemon running as festival user and audio group.
+  We have festival daemon running as festival user and audio group. We
+  also now restrict the default access permissions only to users from
+  localhost, using /etc/festival.scm.
 
-  If you want to enable the Festival server as daemon, you need to do two things:
+  Since festival 1.96~beta-5, the daemon start is enabled by
+  default. If you want to enable the Festival server as daemon with
+  customization in /etc/festival.scm, you need to do two things:
 
   - Set RUN_FESTIVAL=yes in /etc/default/festival file.
   - Set the 'server_access_list' variable to the host names you want to grant
@@ -38,9 +42,9 @@ Festival for Debian
   Use with alsa:
   -------------
 
-  We recommaded that you use alsa. The example of festivalrc is provided below
+  We recommend that you use alsa. The example of festivalrc is provided below
 
   (Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
   (Parameter.set 'Audio_Method 'Audio_Command)
 
-  -- Kartik Mistry <kartik.mistry@gmail.com>  Sat, 24 Nov 2007 20:09:34 +0530
+ -- Kumar Appaiah <akumar@ee.iitm.ac.in>, Sun, 17 Feb 2008 07:12:14 +0530

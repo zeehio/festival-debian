@@ -10,3 +10,4 @@ lib/*gram* 			usr/share/festival
 debian/50festival.el 		etc/emacs/site-start.d
 debian/festival.scm 		etc
 examples/text2wave 		usr/bin
+debian/lintian-override		usr/share/lintian/overrides/festival
