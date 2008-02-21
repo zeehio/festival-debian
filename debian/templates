@@ -1,5 +1,5 @@
 Template: festival/server_passwd
-Type: string
+Type: password
 Default: your_festival_passwd
 _Description: Server password:
  In order to secure the festival server from unauthorized access,

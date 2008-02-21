@@ -48,11 +48,13 @@ fi
 chown festival /etc/festival.scm
 chmod og-r $CONFIG_FILE
 
+# Supporta log file
+mkdir -p /var/log/festival
+touch /var/log/festival/festival.log
+chown festival:audio /var/log/festival/festival.log
 
 # must indicate we are done with debconf, or the script will hang when the
 # server is started below (DEBHELPER section, via dh_installinit).
 db_stop
-
-
 
 #DEBHELPER#

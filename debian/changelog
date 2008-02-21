@@ -13,6 +13,8 @@ festival (1.96~beta-6) unstable; urgency=high
     + Document some changes on daemon mode.
   * debian/templates, debian/config, debian/festival.postinst:
     + Ask for server password during install.
+  * debian/lintian-override:
+    + Permission of /etc/festival.scm should be 0600.
   
  -- Kumar Appaiah <akumar@ee.iitm.ac.in>  Sun, 17 Feb 2008 06:45:30 +0530
 
