@@ -1,3 +1,17 @@
+festival (1.96~beta-7) unstable; urgency=high
+
+  * Do not start festival server by default.
+    (Closes: #466796)
+  * Revert use of debconf.
+  * debian/festival.preinst:
+    + Check for obsolete configuration files.
+  * debian/{festival.init,festival.scm}: Now example files,
+    documented with warnings about potential security
+    issues by their use.
+  * debian/README.Debian: Document server start details.
+
+ -- Kumar Appaiah <akumar@ee.iitm.ac.in>  Thu, 21 Feb 2008 09:40:52 +0530
+
 festival (1.96~beta-6) unstable; urgency=high
 
   * Fix root security hole. Thanks to Tim Brown.

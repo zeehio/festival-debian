@@ -29,7 +29,6 @@ clean: unpatch
 	[ ! -f Makefile ] || $(MAKE) clean
 	quilt pop -a
 	rm -f build-stamp
-	debconf-updatepo
 
 	find . -name make.depend -print0 | xargs -0r $(RM)
 	find . -name make.include -print0 | xargs -0r $(RM)
@@ -49,9 +48,6 @@ install: build
 	dh_clean -k
 	dh_installdirs
 
-	install -D -m 0644 $(CURDIR)/debian/festival.default \
-			   $(CURDIR)/debian/festival/etc/default/festival
-
 binary-indep: build install
 
 binary-arch: build install
@@ -60,12 +56,10 @@ binary-arch: build install
 	dh_installchangelogs -a -k NEWS
 	dh_installdocs -a README ACKNOWLEDGMENTS
 	dh_install
-	dh_installdebconf
 	dh_installcatalogs -a
 	dh_installman -pfestival doc/festival.1 doc/festival_client.1 doc/text2wave.1
 	dh_installinfo -pfestival doc/info/festival.info*
-	dh_installexamples -pfestival examples/* -Xexamples/text2wave
-	dh_installinit -pfestival
+	dh_installexamples -pfestival examples/* -Xexamples/text2wave debian/festival.init debian/festival.scm
 	dh_strip -a
 	dh_link -a
 	dh_compress -a

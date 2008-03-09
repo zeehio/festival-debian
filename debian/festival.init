@@ -20,6 +20,17 @@
 #                    system-wide server process
 ### END INIT INFO
 
+# WARNING: It is inherently insecure to run a festival instance as a
+# server, mainly because it exposes the whole system to exploits which
+# can be easily used by attackers to gain access to your
+# computer. This is because of the inherent design of the festival
+# server. Please use it only in a situation where you are sure that
+# you will not be subjected to such an attack, or have adequate
+# security precautions.
+
+# This file has been provided as an example file for your use, should
+# you wish to run festival as a server.
+
 [ -r /etc/default/festival ] && . /etc/default/festival
 if [ "$RUN_FESTIVAL" != yes ]; then
 	echo Not starting festival server, as /etc/default/festival does not have RUN_FESTIVAL=yes.

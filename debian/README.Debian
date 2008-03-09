@@ -12,26 +12,38 @@ Festival for Debian
   Warning:
   -------
 
+  It is inherently insecure to run a festival instance as a server,
+  mainly because it exposes the whole system to exploits which can be
+  easily used by attackers to gain access to your computer. This is
+  because of the inherent design of the festival server. Please use it
+  only in a situation where you are sure that you will not be
+  subjected to such an attack, or have adequate security precautions.
+
   The following process may give access of your machine to another
   users. Please take care and don't allow server other than localhost or
   127.0.0.1 or trusted users.
 
-  We have festival daemon running as festival user and audio group. We
-  also now restrict the default access permissions only to users from
-  localhost, using /etc/festival.scm.
+  The festival server is now disabled by default, as it exposes the
+  whole system to a root exploit, and makes even a default
+  installation insecure.
 
-  Since festival 1.96~beta-5, the daemon start is enabled by
+  Since festival 1.96~beta-7, the daemon start is disabled by
   default. If you want to enable the Festival server as daemon with
-  customization in /etc/festival.scm, you need to do two things:
+  customization in the example festival.scm, you need to do these things:
 
   - Set RUN_FESTIVAL=yes in /etc/default/festival file.
-  - Set the 'server_access_list' variable to the host names you want to grant
-   access to the server.
+  - Set the 'server_access_list' variable to the host names you want
+    to grant access to the server in festival.scm, and put it
+    somewhere (such as /etc/festival.scm).
+  - Use the example festival.init as /etc/init.d/festival. Ensure it
+    has executable permissions, and the festival.scm file is the rght
+    ones pointed to.
 
-  Note that this variable holds a regular expression which is matched against
-  whatever the client's IP address resolves to (or the address itself, if
-  address-to-name resolution fails). For local connections, that is the first
-  name in the '127.0.0.1' line of /etc/hosts; it may or may not be 'localhost'.
+  Note that the server_access_list variable holds a regular expression
+  which is matched against whatever the client's IP address resolves
+  to (or the address itself, if address-to-name resolution fails). For
+  local connections, that is the first name in the '127.0.0.1' line of
+  /etc/hosts; it may or may not be 'localhost'.
 
   Set 'server_access_list' to NIL if you want to control access by other means
   (e.g., if your firewall filters incoming access to TCP port 1314, or whatever
@@ -47,4 +59,4 @@ Festival for Debian
   (Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
   (Parameter.set 'Audio_Method 'Audio_Command)
 
- -- Kumar Appaiah <akumar@ee.iitm.ac.in>, Sun, 17 Feb 2008 07:12:14 +0530
+ -- Kumar Appaiah <akumar@ee.iitm.ac.in>, Thu, 21 Feb 2008 09:40:28 +0530

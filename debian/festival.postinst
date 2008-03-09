@@ -12,49 +12,4 @@ if ! getent passwd festival >/dev/null; then
        adduser festival --quiet --system --ingroup audio --no-create-home
 fi
 
-. /usr/share/debconf/confmodule
-
-# write selected values into config file
-CONFIG_FILE=/etc/festival.scm
-
-PASSWD_ENTRY=server_passwd
-
-PASSWD=your_festival_passwd
-db_get festival/server_passwd
-PASSWD="$RET"
-# insert the entry, if it is missing (which it ought not to be)
-grep -Eq "^[[:blank:]]*\(set![[:blank:]][[:blank:]]*$PASSWD_ENTRY[[:blank:]]" $CONFIG_FILE || \
-    echo "(set! $PASSWD_ENTRY \"$PASSWD\")" >> $CONFIG_FILE
-
-# only process the password if it is not empty
-if [ "$PASSWD" ]; then
-    # copy config file here in order to preserve permissions when actually
-    # building the tmp file in the sed step
-    cp -a -f $CONFIG_FILE $CONFIG_FILE.tmp
-
-    # escape sed special characters
-    #echo $PASSWD | sed -n 's|[\|\$\&\.\*\%\^\+\?]|\\&|g'
-    PASSWD=$(echo $PASSWD | sed 's|[\[\(\)\|\$\&\.\*\%\^\+\?\/]|\\&|g')
-    sed -e "s/(set.[[:blank:]]\+$PASSWD_ENTRY.*)/(set! $PASSWD_ENTRY \"$PASSWD\")/" \
-	< $CONFIG_FILE > $CONFIG_FILE.tmp
-
-    mv -f $CONFIG_FILE.tmp $CONFIG_FILE
-    # remove the password from the debconf database
-    db_set festival/server_passwd "password written to config file"
-
-fi
-
-# extra safety check: ensure passwords in config file cannot be read by anyone
-chown festival /etc/festival.scm
-chmod og-r $CONFIG_FILE
-
-# Supporta log file
-mkdir -p /var/log/festival
-touch /var/log/festival/festival.log
-chown festival:audio /var/log/festival/festival.log
-
-# must indicate we are done with debconf, or the script will hang when the
-# server is started below (DEBHELPER section, via dh_installinit).
-db_stop
-
 #DEBHELPER#
