@@ -93,3 +93,4 @@ src_modules_UniSyn_diphone_us_diphone_unit.cc.diff
 src_modules_UniSyn_phonology_UniSyn_build.cc.diff
 src_modules_UniSyn_us_features.cc.diff
 testsuite_data_modes.scm.diff
+russian_patch.diff
