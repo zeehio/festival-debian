@@ -26,7 +26,7 @@ Description: General multi-lingual speech synthesis system
 
 Package: festival-dev
 Architecture: any
-Depends: c++abi2-dev, libestools1.2-dev (>= 1:1.2.96~beta)
+Depends: ${misc:Depends}, c++abi2-dev, libestools1.2-dev (>= 1:1.2.96~beta)
 Suggests: festival-doc
 Section: libdevel
 Description: Development kit for the Festival speech synthesis system
