@@ -1,11 +1,12 @@
-festival (1.96~beta-7.1) UNRELEASED; urgency=low
+festival (1.96~beta-8) UNRELEASED; urgency=low
 
   * debian/control:
     + Update maintainers' addresses to debian.org address.
     + Standards version is now 3.8.0 (no changes needed).
   * debian/patches:
     + russian_support.diff: Added Russian support patches provided by
-    Sergey B Kirpichev. (Closes: #516262)
+      Sergey B Kirpichev. (Closes: #516262)
+    + Add default description for each patch.
 
  -- Kumar Appaiah <akumar@debian.org>  Fri, 20 Feb 2009 08:40:12 -0600
 
