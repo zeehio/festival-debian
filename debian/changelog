@@ -7,6 +7,11 @@ festival (1.96~beta-8) UNRELEASED; urgency=low
     + russian_support.diff: Added Russian support patches provided by
       Sergey B Kirpichev. (Closes: #516262)
     + Add default description for each patch.
+  * debian/rules:
+    + Copy the lintian override to the correct location; remove
+      incorrect location from the festival.install file. Thanks
+      to Andreas Beckmann for bringing this to our notice.
+      (Closes: #532403)
 
  -- Kumar Appaiah <akumar@debian.org>  Fri, 20 Feb 2009 08:40:12 -0600
 
