@@ -5,3 +5,4 @@ usr/share/sgml/festival
 usr/share/emacs/site-lisp
 etc/emacs/site-start.d
 etc/default
+usr/share/lintian/overrides
