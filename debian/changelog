@@ -1,5 +1,6 @@
-festival (1.96~beta-8) UNRELEASED; urgency=low
+festival (1.96~beta-8) unstable; urgency=low
 
+  [Kumar Appaiah]
   * debian/control:
     + Update maintainers' addresses to debian.org address.
     + Standards version is now 3.8.0 (no changes needed).
@@ -12,8 +13,11 @@ festival (1.96~beta-8) UNRELEASED; urgency=low
       incorrect location from the festival.install file. Thanks
       to Andreas Beckmann for bringing this to our notice.
       (Closes: #532403)
+  [Kartik Mistry]
+  * debian/control:
+    + Updated Standards-Version to 3.8.1 (no changes needed)
 
- -- Kumar Appaiah <akumar@debian.org>  Fri, 20 Feb 2009 08:40:12 -0600
+ -- Kartik Mistry <kartik@debian.org>  Sat, 13 Jun 2009 11:12:59 +0530
 
 festival (1.96~beta-7) unstable; urgency=high
 

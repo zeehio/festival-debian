@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Kartik Mistry <kartik@debian.org>
 Uploaders: Kumar Appaiah <akumar@debian.org>, Jaldhar H. Vyas <jaldhar@debian.org>
 Build-Depends: debhelper (>= 5), autotools-dev, c++abi2-dev, libesd0-dev, libestools1.2-dev (>= 1:1.2.96~beta), libncurses5-dev, quilt (>= 0.40), texinfo
-Standards-Version: 3.8.0
+Standards-Version: 3.8.1
 Homepage: http://www.cstr.ed.ac.uk/projects/festival/
 Vcs-Git: git://git.debian.org/git/collab-maint/festival.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/festival.git
