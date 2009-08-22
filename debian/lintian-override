@@ -1,3 +1,0 @@
-# We use a non-standard permission to help protect passwords in 
-# /etc/festival.scm
-festival binary: non-standard-file-perm etc/festival.scm 0600 != 0644
