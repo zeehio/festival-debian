@@ -1,4 +1,4 @@
-festival (1.96~beta-9) UNRELEASED; urgency=low
+festival (1.96~beta-9) unstable; urgency=low
 
   * debian/control:
     + Removed c++abi2-dev from dependency as it is provided by g++
