@@ -8,6 +8,8 @@ festival (1.96~beta-9) UNRELEASED; urgency=low
       suggested by debcheck
     + Updated to Standards-Version 3.8.3
   * Added README.source file
+  * debian/rules:
+    + Removed lintian installation
 
  -- Kartik Mistry <kartik@debian.org>  Sat, 22 Aug 2009 20:45:50 +0530
 

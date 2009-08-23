@@ -47,7 +47,6 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-	cp debian/lintian-override $(CURDIR)/debian/festival/usr/share/lintian/overrides/festival
 
 binary-indep: build install
 
