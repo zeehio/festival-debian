@@ -1,7 +1,7 @@
 festival (1.96~beta-10) UNRELEASED; urgency=low
 
   * Add missing part os languages.scm from Sergey Kirpichev's patch.
-    (Closes: #516262)
+    (Closes: #516262, #545737)
 
  -- Kumar Appaiah <akumar@debian.org>  Sat, 12 Sep 2009 18:03:12 -0500
 
