@@ -1,3 +1,10 @@
+festival (1.96~beta-11) UNRELEASED; urgency=low
+
+  * debian/control:
+    + Added missing dependency on alsa-oss and oss-compat (Closes: #565929)
+
+ -- Kartik Mistry <kartik@debian.org>  Wed, 20 Jan 2010 10:46:42 +0530
+
 festival (1.96~beta-10) unstable; urgency=low
 
   * Add missing part os languages.scm from Sergey Kirpichev's patch.

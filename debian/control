@@ -19,7 +19,9 @@ Package: festival
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          adduser (>= 3.105),
+         alsa-oss,
          lsb-base (>= 3.0-10),
+         oss-compat,
          sysv-rc (>= 2.86.ds1) | file-rc
 Recommends: festvox-kallpc16k | festival-voice
 Conflicts: festvox-rablpc8k (<< 1.4.0-2),
