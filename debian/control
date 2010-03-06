@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 5),
                libncurses5-dev,
                quilt (>= 0.40),
                texinfo
-Standards-Version: 3.8.3
+Standards-Version: 3.8.4
 Homepage: http://www.cstr.ed.ac.uk/projects/festival/
 Vcs-Git: git://git.debian.org/git/collab-maint/festival.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/festival.git

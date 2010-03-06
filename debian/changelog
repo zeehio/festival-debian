@@ -1,9 +1,12 @@
 festival (1.96~beta-11) UNRELEASED; urgency=low
 
   * debian/control:
+    + Updated Standards-Version to 3.8.4 (no changes needed)
     + Added missing dependency on alsa-oss and oss-compat (Closes: #565929)
+  * debian/README.Debian already provides example of .festivalrc
+    (Closes: #567514)
 
- -- Kartik Mistry <kartik@debian.org>  Wed, 20 Jan 2010 10:46:42 +0530
+ -- Kartik Mistry <kartik@debian.org>  Sat, 06 Mar 2010 21:03:40 +0530
 
 festival (1.96~beta-10) unstable; urgency=low
 
