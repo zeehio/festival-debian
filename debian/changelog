@@ -1,12 +1,17 @@
 festival (1.96~beta-11) UNRELEASED; urgency=low
 
+  [Kartik Mistry]
   * debian/control:
     + Updated Standards-Version to 3.8.4 (no changes needed)
+    + Updated debhelper dependency to 7
     + Added missing dependency on alsa-oss and oss-compat (Closes: #565929)
   * debian/README.Debian already provides example of .festivalrc
     (Closes: #567514)
+  * debian/rules:
+    + Used dh_prep instead of obsolete dh_clean -k
+    + dh_testdir and dh_testroot don't need -a argument
 
- -- Kartik Mistry <kartik@debian.org>  Sat, 06 Mar 2010 21:03:40 +0530
+ -- Kartik Mistry <kartik@debian.org>  Mon, 29 Mar 2010 15:46:32 +0530
 
 festival (1.96~beta-10) unstable; urgency=low
 

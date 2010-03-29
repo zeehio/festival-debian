@@ -33,7 +33,7 @@ clean: unpatch
 	find . -name make.depend -print0 | xargs -0r $(RM)
 	find . -name make.include -print0 | xargs -0r $(RM)
 	find bin/ \( -name SCCS -o -name RCS -o -name CVS \) -prune \
-		-o -type f ! -name Makefile -print0 | xargs -0r $(RM)
+	     -o -type f ! -name Makefile -print0 | xargs -0r $(RM)
 	rm -rf doc/*.1 doc/festfeat.texi doc/festvars.texi doc/festfunc.texi \
 	       doc/info .pc
 	rm -f config/modincludes.inc config/system.mak
@@ -45,14 +45,14 @@ clean: unpatch
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 binary-indep: build install
 
 binary-arch: build install
-	dh_testdir -a
-	dh_testroot -a
+	dh_testdir
+	dh_testroot
 	dh_installchangelogs -a -k NEWS
 	dh_installdocs -a README ACKNOWLEDGMENTS
 	dh_install
