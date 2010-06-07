@@ -4,7 +4,7 @@ FT := $(shell pwd)/debian/festival
 FDT := $(shell pwd)/debian/festival-dev
 
 #export DH_VERBOSE=1
-#export QUILT_PATCHES=./debian/patches
+export QUILT_PATCHES=./debian/patches
 
 build: build-stamp
 build-stamp:
@@ -20,12 +20,12 @@ endif
 
 clean:
 	$(RM) config/config
-	#quilt push config_config.diff
+	quilt push config_config.diff
 	dh_testdir
 	dh_testroot
 	dh_clean
 	[ ! -f Makefile ] || $(MAKE) clean
-	#quilt pop -a
+	quilt pop -a
 	rm -f build-stamp
 
 	find . -name make.depend -print0 | xargs -0r $(RM)
