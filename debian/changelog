@@ -5,8 +5,8 @@ festival (1.96~beta-11) UNRELEASED; urgency=low
     + Updated Standards-Version to 3.8.4 (no changes needed)
     + Updated debhelper dependency to 7
     + Added missing dependency on alsa-oss and oss-compat (Closes: #565929)
-  * debian/README.Debian already provides example of .festivalrc
-    (Closes: #567514)
+  * debian/README.Debian already provides example of .festivalrc to use
+    festival with ALSA (Closes: #567514, #584634)
   * debian/rules:
     + Used dh_prep instead of obsolete dh_clean -k
     + dh_testdir and dh_testroot don't need -a argument
