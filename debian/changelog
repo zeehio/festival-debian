@@ -10,8 +10,10 @@ festival (1.96~beta-11) UNRELEASED; urgency=low
   * debian/rules:
     + Used dh_prep instead of obsolete dh_clean -k
     + dh_testdir and dh_testroot don't need -a argument
+  * debian/source/format:
+    + Updated to use source format 3.0 (quilt)
 
- -- Kartik Mistry <kartik@debian.org>  Mon, 29 Mar 2010 15:46:32 +0530
+ -- Kartik Mistry <kartik@debian.org>  Mon, 07 Jun 2010 18:39:32 +0530
 
 festival (1.96~beta-10) unstable; urgency=low
 
