@@ -1,8 +1,8 @@
-festival (1.96~beta-11) UNRELEASED; urgency=low
+festival (1:2.0.95~beta-1) UNRELEASED; urgency=low
 
-  [Kartik Mistry]
+  [ Kartik Mistry ]
   * debian/control:
-    + Updated Standards-Version to 3.8.4 (no changes needed)
+    + Updated Standards-Version to 3.9.0 (no changes needed)
     + Updated debhelper dependency to 7
     + Added missing dependency on alsa-oss and oss-compat (Closes: #565929)
   * debian/README.Debian already provides example of .festivalrc to use
@@ -13,7 +13,10 @@ festival (1.96~beta-11) UNRELEASED; urgency=low
   * debian/source/format:
     + Updated to use source format 3.0 (quilt)
 
- -- Kartik Mistry <kartik@debian.org>  Mon, 07 Jun 2010 18:39:32 +0530
+  [ Kumar Appaiah ]
+  * New Upstream Release.
+
+ -- Kumar Appaiah <akumar@debian.org>  Sat, 17 Jul 2010 08:34:05 -0500
 
 festival (1.96~beta-10) unstable; urgency=low
 

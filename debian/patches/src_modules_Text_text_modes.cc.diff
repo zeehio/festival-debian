@@ -1,10 +1,10 @@
 This patch is part of a series of patches for festival for
 Debian GNU/Linux, which primarily fix build errors with GCC 4.3 and newer.
 
-Index: b/src/modules/Text/text_modes.cc
+Index: festival/src/modules/Text/text_modes.cc
 ===================================================================
---- a/src/modules/Text/text_modes.cc
-+++ b/src/modules/Text/text_modes.cc
+--- festival.orig/src/modules/Text/text_modes.cc	2009-02-17 11:45:52.000000000 -0600
++++ festival/src/modules/Text/text_modes.cc	2010-07-17 08:01:24.000000000 -0500
 @@ -52,6 +52,9 @@
  #include "text.h"
  #include "lexicon.h"
@@ -15,12 +15,3 @@ Index: b/src/modules/Text/text_modes.cc
  static void um_apply_filter(const EST_String &filtername,
  			    const EST_String &infile,
  			    const EST_String &outname);
-@@ -60,7 +63,7 @@
- {
- 
-     volatile EST_String tmpname = make_tmp_filename();
--    volatile EST_String inname = get_c_string(filename);
-+    volatile EST_String inname(get_c_string(filename)); //fixed ftbfs with gcc-snapshot Debian bug: #441527
-     volatile EST_String filter;
-     volatile EST_TokenStream ts;
-     volatile LISP func;

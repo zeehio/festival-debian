@@ -1,10 +1,10 @@
 This patch is part of a series of patches for festival for
 Debian GNU/Linux, which primarily fix build errors with GCC 4.3 and newer.
 
-Index: b/src/arch/festival/festival.cc
+Index: festival/src/arch/festival/festival.cc
 ===================================================================
---- a/src/arch/festival/festival.cc
-+++ b/src/arch/festival/festival.cc
+--- festival.orig/src/arch/festival/festival.cc	2010-03-23 14:26:34.000000000 -0500
++++ festival/src/arch/festival/festival.cc	2010-07-17 08:00:43.000000000 -0500
 @@ -46,6 +46,8 @@
  #include "siod.h"
  #include "ModuleDescription.h"
@@ -32,7 +32,7 @@ Index: b/src/arch/festival/festival.cc
  ostream *cdebug;
  static int festival_server_port = 1314;
  static EST_StrList sub_copyrights;
-@@ -299,7 +303,7 @@
+@@ -302,7 +306,7 @@
      EST_String userinitfile, home_str, initfile;
  
      // Load library init first
@@ -41,7 +41,7 @@ Index: b/src/arch/festival/festival.cc
  	"init.scm";
      if (access((const char *)initfile,R_OK) == 0)
  	vload(initfile,FALSE);
-@@ -315,6 +319,8 @@
+@@ -318,6 +322,8 @@
      int major,minor,subminor;
      
      siod_set_lval("libdir",strintern(festival_libdir));
@@ -50,7 +50,7 @@ Index: b/src/arch/festival/festival.cc
      if (!streq(FTOSTYPE,""))
  	siod_set_lval("*ostype*",cintern(FTOSTYPE));
      siod_set_lval("festival_version",
-@@ -341,13 +347,12 @@
+@@ -344,13 +350,12 @@
  	proclaim_module("freebsd16audio");
      if (linux16_supported)
  	proclaim_module("linux16audio");
@@ -65,7 +65,7 @@ Index: b/src/arch/festival/festival.cc
      // Add etc-dir path and machine specific directory etc/$OSTYPE
      char *etcdir = walloc(char,strlen(festival_libdir)+strlen("etc/")+
  			  strlen(FTOSTYPE)+3);
-@@ -368,6 +373,7 @@
+@@ -371,6 +376,7 @@
      
      wfree(etcdir);
      wfree(etcdircommon);
@@ -73,7 +73,7 @@ Index: b/src/arch/festival/festival.cc
      return;
  }
  
-@@ -582,4 +588,3 @@
+@@ -585,4 +591,3 @@
  	    return get_c_string(car(cdr(car(l))));
      return pos;
  }

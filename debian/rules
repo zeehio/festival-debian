@@ -6,9 +6,7 @@ FDT := $(shell pwd)/debian/festival-dev
 #export DH_VERBOSE=1
 export QUILT_PATCHES=./debian/patches
 
-include /usr/share/quilt/quilt.make
-
-build: build-stamp patch
+build: build-stamp
 build-stamp:
 ifneq "$(wildcard /usr/share/misc/config.sub)" ""
 	cp -f /usr/share/misc/config.sub config.sub
