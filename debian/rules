@@ -6,8 +6,10 @@ FDT := $(shell pwd)/debian/festival-dev
 #export DH_VERBOSE=1
 export QUILT_PATCHES=./debian/patches
 
+include /usr/share/quilt/quilt.make
+
 build: build-stamp
-build-stamp:
+build-stamp: patch
 ifneq "$(wildcard /usr/share/misc/config.sub)" ""
 	cp -f /usr/share/misc/config.sub config.sub
 endif
@@ -18,7 +20,7 @@ endif
 	cd doc && $(MAKE) festival.info
 	touch $@
 
-clean:
+clean: unpatch
 	$(RM) config/config
 	quilt push config_config.diff
 	dh_testdir

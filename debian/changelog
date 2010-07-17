@@ -15,8 +15,15 @@ festival (1:2.0.95~beta-1) UNRELEASED; urgency=low
 
   [ Kumar Appaiah ]
   * New Upstream Release.
+  * debian/source/format:
+    + Revert to 1.0 to avoid quilt patching problems.
+  * debian/control:
+    + Depend on new speech-tools.
+  * debian/patches/festival_el_utf8.diff:
+    + Patch from Javier M Mora for fixing Emacs functionality
+      if character set of system is UTF-8 (Closes: #572779)
 
- -- Kumar Appaiah <akumar@debian.org>  Sat, 17 Jul 2010 08:34:05 -0500
+ -- Kumar Appaiah <akumar@debian.org>  Sat, 17 Jul 2010 12:11:07 -0500
 
 festival (1.96~beta-10) unstable; urgency=low
 

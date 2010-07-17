@@ -7,7 +7,7 @@ Uploaders: Kumar Appaiah <akumar@debian.org>,
 Build-Depends: debhelper (>= 7.0.5~),
                autotools-dev,
                libesd0-dev,
-               libestools1.2-dev (>= 1:1.2.96~beta),
+               libestools2.0-dev (>= 1:2.0.95~beta),
                libncurses5-dev,
                quilt (>= 0.40),
                texinfo
@@ -46,7 +46,7 @@ Description: General multi-lingual speech synthesis system
 
 Package: festival-dev
 Architecture: any
-Depends: ${misc:Depends}, libestools1.2-dev (>= 1:1.2.96~beta)
+Depends: ${misc:Depends}, libestools2.0-dev (>= 1:2.0.95~beta)
 Suggests: festival-doc
 Section: libdevel
 Description: Development kit for the Festival speech synthesis system
