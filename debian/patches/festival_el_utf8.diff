@@ -1,3 +1,6 @@
+Patch from Javier M Mora for fixing Emacs functionality
+if character set of system is UTF-8 (Closes: #572779)
+
 --- a/lib/festival.el	2005-01-12 02:11:06.000000000 +0100
 +++ b/lib/festival.el	2010-03-06 23:10:20.000000000 +0100
 @@ -123,15 +123,16 @@
