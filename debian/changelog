@@ -1,4 +1,4 @@
-festival (1:2.0.95~beta-1) UNRELEASED; urgency=low
+festival (1:2.0.95~beta-1) unstable; urgency=low
 
   [ Kartik Mistry ]
   * debian/control:
@@ -23,7 +23,7 @@ festival (1:2.0.95~beta-1) UNRELEASED; urgency=low
     + Patch from Javier M Mora for fixing Emacs functionality
       if character set of system is UTF-8 (Closes: #572779)
 
- -- Kumar Appaiah <akumar@debian.org>  Sat, 17 Jul 2010 12:11:07 -0500
+ -- Kumar Appaiah <akumar@debian.org>  Sat, 17 Jul 2010 21:25:55 -0500
 
 festival (1.96~beta-10) unstable; urgency=low
 
