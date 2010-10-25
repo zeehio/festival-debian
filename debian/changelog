@@ -1,3 +1,10 @@
+festival (1:2.0.95~beta-2) unstable; urgency=low
+
+  * Don't depend on alsa-oss on kfreebsd-*, since it is unavailable
+    there. (Closes: #590860)
+
+ -- Kumar Appaiah <akumar@debian.org>  Thu, 29 Jul 2010 18:40:17 -0500
+
 festival (1:2.0.95~beta-1) unstable; urgency=low
 
   [ Kartik Mistry ]
