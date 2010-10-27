@@ -1,3 +1,10 @@
+festival (1:2.0.95~beta-4) unstable; urgency=low
+
+  * alsa-utils does not exist on kfreebsd-*; exclude those architectures
+    in the dependencies.
+
+ -- Kumar Appaiah <akumar@debian.org>  Wed, 27 Oct 2010 08:17:40 -0500
+
 festival (1:2.0.95~beta-3) unstable; urgency=low
 
   * Add patch from Samuel Thibault to make ALSA backend default.
