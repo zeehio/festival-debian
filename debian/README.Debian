@@ -51,12 +51,16 @@ Festival for Debian
 
   (set! 'server_access_list nil)
 
-  Use with alsa:
-  -------------
+  Use with alsa/other sound system:
+  ---------------------------------
 
-  We recommend that you use alsa. The example of festivalrc is provided below
+  We recommend that you use alsa. This is the default setting in
+  /etc/festival.scm. However, for non-Linux architectures, where ALSA
+  is unavailable, the audio method can be changed by setting it in ~/.festivalrc, with:
+  
+  (Parameter.set 'Audio_Method '<sound_system>)
 
-  (Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
-  (Parameter.set 'Audio_Method 'Audio_Command)
+  where <sound_system> is an appropriate sound system reference, such
+  as freebsd16audio, mplayeraudio etc.
 
- -- Kumar Appaiah <akumar@ee.iitm.ac.in>, Thu, 21 Feb 2008 09:40:28 +0530
+ -- Kumar Appaiah <akumar@debian.org>, Wed, 27 Oct 2010 09:07:45 -0500

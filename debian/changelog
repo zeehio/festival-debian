@@ -4,12 +4,20 @@ festival (1:2.0.95~beta-5.1) unstable; urgency=low
 
  -- Samuel Thibault <sthibault@debian.org>  Tue, 09 Nov 2010 18:23:43 +0100
 
+festival (1:2.0.95~beta-5) unstable; urgency=low
+
+  * alsa-utils and alsa-oss do not exist on non-Linux arches; exclude
+    those architectures in the dependencies.
+  * Add change to README.Debian to provide hints to non-Linux users on
+    configuring their sound system.
+
+ -- Kumar Appaiah <akumar@debian.org>  Wed, 27 Oct 2010 09:11:57 -0500
+
 festival (1:2.0.95~beta-4) unstable; urgency=low
 
-  * alsa-utils does not exist on kfreebsd-*; exclude those architectures
-    in the dependencies.
+  * Brown paper bag: Reupload without .git directory
 
- -- Kumar Appaiah <akumar@debian.org>  Wed, 27 Oct 2010 08:17:40 -0500
+ -- Kumar Appaiah <akumar@debian.org>  Mon, 25 Oct 2010 23:53:18 -0500
 
 festival (1:2.0.95~beta-3) unstable; urgency=low
 
