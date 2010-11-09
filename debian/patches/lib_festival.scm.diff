@@ -39,3 +39,11 @@ Index: b/lib/festival.scm
  
  (define (na_play FILENAME)
  "(play_wave FILENAME)
+@@ -631,3 +631,7 @@ Compile all the scheme files in the library directory."
+ (defvar mlsa_beta_param 0.0)
+ 
+ (provide 'festival)
++
++; Make ALSA the default backend
++(Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
++(Parameter.set 'Audio_Method 'Audio_Command)
