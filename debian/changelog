@@ -1,3 +1,9 @@
+festival (1:2.0.95~beta-6) unstable; urgency=low
+
+  * Add the multisyn directory to the installation. (Closes: #613682)
+
+ -- Kumar Appaiah <akumar@debian.org>  Wed, 16 Feb 2011 10:14:57 -0600
+
 festival (1:2.0.95~beta-5.1) unstable; urgency=low
 
   * Non-maintainer upload.
