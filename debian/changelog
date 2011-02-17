@@ -1,3 +1,12 @@
+festival (1:2.1~release-1) unstable; urgency=low
+
+  * New upstream release
+  * No longer depend on alsa-oss and oss-compat (Closes: #592411)
+  * Add festival.scm for aplay setting
+  * Build-Depend on speech-tools 2.1-release version
+
+ -- Kumar Appaiah <akumar@debian.org>  Wed, 16 Feb 2011 21:21:02 -0600
+
 festival (1:2.0.95~beta-6) unstable; urgency=low
 
   * Add the multisyn directory to the installation. (Closes: #613682)

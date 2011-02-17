@@ -10,3 +10,4 @@ lib/festival.el 		usr/share/emacs/site-lisp
 lib/*gram* 			usr/share/festival
 debian/50festival.el 		etc/emacs/site-start.d
 examples/text2wave 		usr/bin
+debian/festival.scm		etc
