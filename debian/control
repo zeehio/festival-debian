@@ -1,9 +1,10 @@
 Source: festival
 Section: sound
 Priority: optional
-Maintainer: Kartik Mistry <kartik@debian.org>
+Maintainer: Jean-Philippe MENGUAL <texou@accelibreinfo.eu>
 Uploaders: Kumar Appaiah <akumar@debian.org>,
- Jaldhar H. Vyas <jaldhar@debian.org>
+ Jaldhar H. Vyas <jaldhar@debian.org>,
+ Jean-Philippe MENGUAL <texou@accelibreinfo.eu>
 Build-Depends: debhelper (>= 7.0.5~),
                autotools-dev,
                libesd0-dev,
