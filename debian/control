@@ -3,7 +3,12 @@ Section: sound
 Priority: optional
 Maintainer: Jean-Philippe MENGUAL <texou@accelibreinfo.eu>
 Uploaders: Kumar Appaiah <akumar@debian.org>,
+<<<<<<< HEAD
  Jaldhar H. Vyas <jaldhar@debian.org>,
+=======
+ Jaldhar H. Vyas <jaldhar@debian.org>
+ Peter Drysdale <drysdalepete@gmail.com>
+>>>>>>> f3c510e49906124d51fdd648b750f4664de9f2b3
 Build-Depends: debhelper (>= 7.0.5~),
                autotools-dev,
                libesd0-dev,
