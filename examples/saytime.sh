@@ -44,7 +44,7 @@
 
 ;;; Because this is a --script type file I has to explicitly
 ;;; load the initfiles: init.scm and user's .festivalrc
-(load (path-append libdir "init.scm"))
+(load (path-append datadir "init.scm"))
 
 (define (get-the-time)
 "Returns a list of hour and minute and second, for later processing"

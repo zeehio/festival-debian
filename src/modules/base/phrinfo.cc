@@ -43,6 +43,9 @@
 #include "modules.h"
 #include "text.h"
 
+using std::cerr;
+using std::endl;
+
 static EST_Item *make_phrase_node(EST_Utterance *u,
 					 const EST_String &name,
 					 LISP feats);

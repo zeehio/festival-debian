@@ -52,7 +52,7 @@ LISP FT_Intonation_Simple_Utt(LISP utt)
     LISP accent_tree;
     EST_Val paccent;
 
-    *cdebug << "Simple intonation module" << endl;
+    *cdebug << "Simple intonation module" << std::endl;
 
     accent_tree = siod_get_lval("int_accent_cart_tree","no accent tree");
 
@@ -80,7 +80,7 @@ LISP FT_Int_Targets_Simple_Utt(LISP utt)
     LISP simple_params;
     float f0_mean, f0_std;
 
-    *cdebug << "Simple int targets module" << endl;
+    *cdebug << "Simple int targets module" << std::endl;
 
     // Create some down step accents
     simple_params = siod_get_lval("int_simple_params","no simple params");

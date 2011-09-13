@@ -89,7 +89,7 @@ shouldn't be spoken, but we do have to deal with them."
 
 ;;;  The program used to parse stml files
 ;;;  Needs version 1.0 to allow -D option to work
-(defvar sgml_parse_progname "nsgmls-1.0"
+(defvar sgml_parse_progname "nsgmls"
   "sgml_parse_progname
 The name of the program to use to parse SGML files.  Typically this is
 nsgml-1.0 from the sp SGML package. [see XML/SGML requirements]")
@@ -151,7 +151,9 @@ Functions to apply to each token.")
   "xxml_elements
 List of Scheme actions to perform on finding xxML tags.")
 
-(defvar xml_dtd_dir libdir
+;; Hacked for Debian.  Better solution would be to get RXP to
+;; understand /etc/sgml.catalog.
+(defvar xml_dtd_dir "/usr/share/sgml/festival"
   "xml_dtd_dir
 The directory holding standard DTD form the xml parser.")
 

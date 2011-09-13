@@ -52,6 +52,9 @@
 #include "text.h"
 #include "lexicon.h"
 
+using std::cerr;
+using std::endl;
+
 static void um_apply_filter(const EST_String &filtername,
 			    const EST_String &infile,
 			    const EST_String &outname);

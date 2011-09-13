@@ -48,6 +48,9 @@
 #include "lexicon.h"
 #include "text.h"
 
+using std::cerr;
+using std::endl;
+
 static int rhc = 10;
 static int lhc = 10;
 

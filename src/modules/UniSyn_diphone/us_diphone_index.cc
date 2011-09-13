@@ -43,6 +43,10 @@
 #include "us_diphone.h"
 #include "Phone.h"
 
+using std::cout;
+using std::cerr;
+using std::endl;
+
 static bool US_full_coefs = false;
 USDiphIndex *diph_index = 0;
 extern LISP us_dbs;

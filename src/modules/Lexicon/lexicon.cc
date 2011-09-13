@@ -43,6 +43,10 @@
 #include "lexiconP.h"
 #include "lts.h"
 
+using std::cout;
+using std::cerr;
+using std::endl;
+
 static int bl_match_entry(LISP entry,const EST_String &word);
 static int match_features(LISP req_feats, LISP act_feats);
 

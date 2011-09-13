@@ -51,7 +51,7 @@ template <> ItemList* EST_THash< EST_String, ItemList* >::Dummy_Value=0;
 
 #if defined(INSTANTIATE_TEMPLATES)
 
-#include "../base_class/EST_THash.cc"
+#include "/usr/include/speech_tools/base_class/EST_THash.cc"
 
 Instantiate_TStringHash_T(ItemList *, ItemListP)
 

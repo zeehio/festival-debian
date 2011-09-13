@@ -43,6 +43,9 @@
 #include "festival.h"
 #include "festivalP.h"
 
+using std::cerr;
+using std::endl;
+
 #ifdef NO_SPOOLER
 void audsp_play_wave(EST_Wave *w) { cerr << "no spooler available\n"; }
 LISP l_audio_mode(LISP mode) { return NIL; }
@@ -108,7 +111,7 @@ LISP l_audio_mode(LISP mode)
 	{
 	    audio = ft_get_param("Audio_Method");
 	    command = ft_get_param("Audio_Command");
-	    audfds = pipe_open("audsp");
+	    audfds = pipe_open("/usr/lib/festival/audsp");
 	    if (audio != NIL)
 		audsp_send(EST_String("method ")+get_c_string(audio));
 	    if (command != NIL)

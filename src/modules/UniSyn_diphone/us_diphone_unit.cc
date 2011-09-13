@@ -43,6 +43,9 @@
 #include "us_diphone.h"
 #include "Phone.h"
 
+using std::cerr;
+using std::endl;
+
 extern USDiphIndex *diph_index;
 
 void dur_to_end(EST_Relation &r)

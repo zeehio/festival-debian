@@ -46,6 +46,9 @@
 #include "text.h"
 #include "rxp.h"
 
+using std::cerr;
+using std::endl;
+
 // So we can share the known_ids table.
 #include "ling_class/EST_utterance_xml.h"
 

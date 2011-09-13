@@ -51,6 +51,9 @@ using namespace std;
 #include "EST.h"
 #include "EST_unix.h"
 
+using std::cerr;
+using std::endl;
+
 #ifdef NO_SPOOLER
 
 int main(int argc, char **argv)

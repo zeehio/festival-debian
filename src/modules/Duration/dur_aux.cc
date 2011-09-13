@@ -41,6 +41,8 @@
 #include "festival.h"
 #include "durationP.h"
 
+using std::cerr;
+
 float dur_get_stretch(void)
 {
     LISP lstretch = ft_get_param("Duration_Stretch");

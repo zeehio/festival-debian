@@ -45,8 +45,8 @@ Set up language parameters for British English."
   (require 'voices)
   ;;  Will get more elaborate, with different choices of voices in language
 
-  (set! male1 voice_rab_diphone)
-  (set! male2 voice_don_diphone)
+  (set! male1 (lambda () (voice_rab_diphone)))
+  (set! male2 (lambda () (voice_don_diphone)))
   (if (symbol-bound? 'voice_gsw_diphone)
       (set! male3 voice_gsw_diphone))
   (if (symbol-bound? 'voice_gsw_450)
@@ -56,16 +56,57 @@ Set up language parameters for British English."
   (Parameter.set 'Language 'britishenglish)
 )
 
+
+(define (language_italian)
+"(language_italian)
+Set up language parameters for Italian."
+
+  (if (symbol-bound? 'voice_lp_diphone)
+      (set! female1 (lambda () (voice_lp_diphone))))
+  (set! male1 (lambda () (voice_pc_diphone)))
+
+  (male1)
+  (Parameter.set 'Language 'italian)
+)
+
+
 (define (language_american_english)
 "(language_american_english)
 Set up language parameters for Aemerican English."
 
   (if (symbol-bound? 'voice_kal_diphone)
-      (set! female1 voice_kal_diphone))
-  (set! male1 voice_ked_diphone)
+      (set! female1 (lambda () (voice_kal_diphone))))
+  (set! male1 (lambda () (voice_ked_diphone)))
 
   (male1)
   (Parameter.set 'Language 'americanenglish)
+)
+
+(define (language_finnish)
+"(language_finnish)
+Set up language parameters for Finnish."
+  (if (symbol-bound? 'voice_suo_fi_lj_diphone)
+      (set! female1 (lambda () (voice_suo_fi_lj_diphone))))
+  (set! male1 (lambda () (voice_hy_fi_mv_diphone)))
+
+  (male1)
+  (Parameter.set 'Language 'finnish)
+)
+
+(define (language_czech)
+"(language_czech)
+Set up language parameters for Czech."
+   (set! male1 (lambda () (voice_czech_ph)))
+   (male1)
+   (Parameter.set 'Language 'czech)
+)
+
+(define (language_russian)
+"(language_russian)
+Set up language parameters for Russian."
+  (set! male1 voice_msu_ru_nsh_clunits)
+  (male1)
+  (Parameter.set 'Language 'russian)
 )
 
 (define (language_scots_gaelic)
@@ -80,7 +121,7 @@ Set up language parameters for Scots Gaelic."
 "(language_welsh)
 Set up language parameters for Welsh."
 
-  (set! male1 voice_welsh_hl)
+  (set! male1 (lambda () (voice_welsh_hl)))
 
   (male1)
   (Parameter.set 'Language 'welsh)
@@ -91,7 +132,7 @@ Set up language parameters for Welsh."
 Set up language parameters for Castillian Spanish."
 
   (voice_el_diphone)
-  (set! male1 voice_el_diphone)
+  (set! male1 (lambda () (voice_el_diphone)))
 
   (Parameter.set 'Language 'spanish)
 )
@@ -107,10 +148,18 @@ Set up language parameters for Castillian Spanish."
     (language_scots_gaelic))
    ((equal? language 'welsh)
     (language_welsh))
+   ((equal? language 'italian)
+    (language_italian))
    ((equal? language 'spanish)
     (language_castillian_spanish))
+   ((equal? language 'finnish)
+    (language_finnish))
+   ((equal? language 'czech)
+    (language_czech))
    ((equal? language 'klingon)
     (language_klingon))
+   ((equal? language 'russian)
+    (language_russian))
    (t
     (print "Unsupported language, using English")
     (language_british_english))))

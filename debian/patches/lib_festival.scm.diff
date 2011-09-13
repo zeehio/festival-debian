@@ -16,7 +16,7 @@ Index: b/lib/festival.scm
  from which clients may access the server.  This is a list of REGEXs
 @@ -494,7 +494,7 @@
  (If compiled with editline)
-   M-h               desplays help on current symbol  
+   M-h               displays help on current symbol  
    M-s               speaks help on current symbol  
 -  M-m               displays relevant manula page in local netscape
 +  M-m               displays relevant manual page in local netscape

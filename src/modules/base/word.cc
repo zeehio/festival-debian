@@ -43,6 +43,9 @@
 #include "lexicon.h"
 #include "modules.h"
 
+using std::cerr;
+using std::endl;
+
 static EST_Item *add_syllable(EST_Utterance *u, int stress);
 static LISP specified_word_pronunciation(EST_Item *w, LISP lpos);
 

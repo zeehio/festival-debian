@@ -49,6 +49,9 @@
 #include "festival.h"
 #include "festivalP.h"
 
+using std::cerr;
+using std::endl;
+
 static EST_Regex ipnum("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
 
 int festival_socket_client(const char *host,int port)

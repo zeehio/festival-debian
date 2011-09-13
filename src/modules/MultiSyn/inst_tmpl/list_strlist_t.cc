@@ -46,6 +46,6 @@
 Declare_TList_T(EST_TList<EST_String>,STR_LIST)
 
 #if defined(INSTANTIATE_TEMPLATES)
-#include "../base_class/EST_TList.cc"
+#include "/usr/include/speech_tools/base_class/EST_TList.cc"
   Instantiate_TList_T(EST_StrList,STR_LIST);
 #endif

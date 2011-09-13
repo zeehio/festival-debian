@@ -44,6 +44,8 @@
 #include <fstream>
 #include "festival.h"
 
+using namespace std;
+
 #include "../UniSyn/us_features.h"
 
 void merge_features(EST_Item *from, EST_Item *to, int keep_id);

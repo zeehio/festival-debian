@@ -41,6 +41,9 @@
 #include "festival.h"
 #include "modules.h"
 
+using std::cerr;
+using std::endl;
+
 static EST_String stressname("stress");
 static EST_Val val_string0("0");
 static EST_Val val_string1("1");

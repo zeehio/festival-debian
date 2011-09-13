@@ -49,6 +49,9 @@
 #include "festival.h"
 #include "text.h"
 
+using std::cerr;
+using std::endl;
+
 static void tts_raw_token(EST_Item *t);
 static void tts_raw_utt(LISP utt);
 

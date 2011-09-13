@@ -46,6 +46,8 @@
 #include "siod.h"
 #include "ModuleDescription.h"
 
+using namespace std;
+
 void festival_lisp_funcs(void);
 void festival_lisp_vars(void);
 void festival_banner(void);
@@ -55,6 +57,9 @@ void festival_load_default_files(void);
 #define STRINGIZE(S) _S_S_S(S)
 
 const char *festival_version =  STRINGIZE(FTVERSION) ":" STRINGIZE(FTSTATE) " " STRINGIZE(FTDATE);
+const char *festival_libdir = "/usr/lib/festival";
+const char *festival_datadir = "/usr/share/festival";
+const char *festival_sysconfdir = "/etc";
 
 // Allow the path to be passed in without quotes because Windoze command line
 // is stupid
@@ -74,7 +79,6 @@ const char *festival_version =  STRINGIZE(FTVERSION) ":" STRINGIZE(FTSTATE) " " 
 #define FTOSTYPE ""
 #endif
 
-const char *festival_libdir = FTLIBDIR;
 ostream *cdebug;
 static int festival_server_port = 1314;
 static EST_StrList sub_copyrights;
@@ -302,7 +306,7 @@ void festival_load_default_files(void)
     EST_String userinitfile, home_str, initfile;
 
     // Load library init first
-    initfile = (EST_String)EST_Pathname(festival_libdir).as_directory() + 
+    initfile = (EST_String)EST_Pathname(festival_datadir).as_directory() +
 	"init.scm";
     if (access((const char *)initfile,R_OK) == 0)
 	vload(initfile,FALSE);
@@ -318,6 +322,8 @@ void festival_lisp_vars(void)
     int major,minor,subminor;
     
     siod_set_lval("libdir",strintern(festival_libdir));
+    siod_set_lval("datadir",strintern(festival_datadir));
+    siod_set_lval("sysconfdir",strintern(festival_sysconfdir));
     if (!streq(FTOSTYPE,""))
 	siod_set_lval("*ostype*",cintern(FTOSTYPE));
     siod_set_lval("festival_version",
@@ -344,13 +350,12 @@ void festival_lisp_vars(void)
 	proclaim_module("freebsd16audio");
     if (linux16_supported)
 	proclaim_module("linux16audio");
-    if (macosx_supported)
-	proclaim_module("macosxaudio");
     if (win32audio_supported)
 	proclaim_module("win32audio");
     if (mplayer_supported)
 	proclaim_module("mplayeraudio");
     
+#if 0 /* /usr/lib/festival/etc/machine -- ??? */
     // Add etc-dir path and machine specific directory etc/$OSTYPE
     char *etcdir = walloc(char,strlen(festival_libdir)+strlen("etc/")+
 			  strlen(FTOSTYPE)+3);
@@ -371,6 +376,7 @@ void festival_lisp_vars(void)
     
     wfree(etcdir);
     wfree(etcdircommon);
+#endif
     return;
 }
 
@@ -585,4 +591,3 @@ EST_String map_pos(LISP posmap, const EST_String &pos)
 	    return get_c_string(car(cdr(car(l))));
     return pos;
 }
-

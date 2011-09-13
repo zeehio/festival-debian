@@ -45,7 +45,7 @@
 
 ;;; Because this is a --script type file I has to explicitly
 ;;; load the initfiles: init.scm and user's .festivalrc
-(load (path-append libdir "init.scm"))
+(load (path-append datadir "init.scm"))
 
 (require 'scfg)
 
@@ -66,7 +66,7 @@
 (gc-status nil)
 
 ;;; Default argument values
-(defvar grammarfile (path-append libdir "scfg_wsj_wp20.gram"))
+(defvar grammarfile (path-append datadir "scfg_wsj_wp20.gram"))
 (defvar outfile "-")
 (defvar outfd t)
 (defvar parse_type 'brackets_only)

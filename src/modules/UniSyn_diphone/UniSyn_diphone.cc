@@ -42,6 +42,8 @@
 #include "us_diphone.h"
 #include "festival.h"
 
+using std::endl;
+
 extern USDiphIndex *diph_index;
 LISP us_dbs = NIL;
 LISP us_make_group_file(LISP lname, LISP params);
@@ -114,7 +116,7 @@ LISP us_diphone_init(LISP args)
 	d_index->grouped = true;
 	if (d_index->ts.open(d_index->index_file) != 0)
 	{
-	    cerr << "US DB: can't open grouped diphone file " 
+	    std::cerr << "US DB: can't open grouped diphone file " 
 		<< d_index->index_file << endl;
 	    festival_error();
 	}
@@ -123,10 +125,10 @@ LISP us_diphone_init(LISP args)
     }
     else
     {
-	*cdebug << ":" << get_param_str("grouped",args,"") << ":" << endl;
-	*cdebug << "index grouped:" << d_index->grouped << endl;
-	*cdebug << "true:" << true << endl;
-	*cdebug << "false:" << false << endl;
+	*cdebug << ":" << get_param_str("grouped",args,"") << ":" << endl
+	        << "index grouped:" << d_index->grouped << endl
+	        << "true:" << true << endl
+	        << "false:" << false << endl;
 	
 	d_index->coef_dir = get_param_str("coef_dir",args,"");
 	d_index->sig_dir = get_param_str("sig_dir",args,"");

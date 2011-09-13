@@ -40,7 +40,7 @@
 
 ;;; Because this is a --script type file it has to explicitly
 ;;; load the initfiles: init.scm and user's .festivalrc
-(load (path-append libdir "init.scm"))
+(load (path-append datadir "init.scm"))
 
 (define (durmeanstd_help)
   (format t "%s\n"

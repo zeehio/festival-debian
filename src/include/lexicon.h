@@ -99,12 +99,12 @@ public:
 		      const EST_String &word,
 		      int start,int mid, int end);
 
-    inline friend ostream& operator<<(ostream& s, Lexicon &p);
+    inline friend std::ostream& operator<<(std::ostream& s, Lexicon &p);
 
     Lexicon & operator =(const Lexicon &a);
 };
 
-inline ostream& operator<<(ostream& s, Lexicon &p)
+inline std::ostream& operator<<(std::ostream& s, Lexicon &p)
 {
     s << "[LEXICON " << p.lex_name() << "]" ;
     return s;

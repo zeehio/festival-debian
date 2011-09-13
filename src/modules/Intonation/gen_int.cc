@@ -49,6 +49,9 @@
 #include "festival.h"
 #include "intonation.h"
 
+using std::cerr;
+using std::endl;
+
 static void check_targs(EST_Utterance *u);
 static EST_Item *find_nearest_seg(EST_Utterance *u,float pos);
 

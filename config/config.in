@@ -10,7 +10,7 @@
 ###########################################################################
 ## Which speech tools to use
 
-EST=$(TOP)/../speech_tools
+EST=/usr/lib/speech_tools
 
 ###########################################################################
 ## Where the festival tree will be installed.
@@ -20,7 +20,7 @@ EST=$(TOP)/../speech_tools
 ## You may need to set this explicitly if automounter or NFS
 ## side effects cause problems
 
-FESTIVAL_HOME := $(shell (cd $(TOP); pwd))
+FESTIVAL_HOME := /usr/share/festival
 
 ###########################################################################
 ## Feature selection.

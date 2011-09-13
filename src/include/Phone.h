@@ -55,12 +55,12 @@ public:
        { return features.val_def(key,def); }
     int match_features(Phone *foreign);
 
-    inline friend ostream& operator<<(ostream& s, Phone &p);
+    inline friend std::ostream& operator<<(std::ostream& s, Phone &p);
 
     Phone & operator =(const Phone &a);
 };
 
-inline ostream& operator<<(ostream& s, Phone &p)
+inline std::ostream& operator<<(std::ostream& s, Phone &p)
 {
     s << "[PHONE " << p.phone_name() << "]";
 //    s << p.features << endl;
@@ -108,13 +108,13 @@ public:
 		           != NIL); }
     void set_feature(const EST_String &name, LISP vals); 
 
-    inline friend ostream& operator<<(ostream& s, PhoneSet &p);
+    inline friend std::ostream& operator<<(std::ostream& s, PhoneSet &p);
 
     Phone *find_matched_phone(Phone *phone);
     PhoneSet & operator =(const PhoneSet &a);
 };
 
-inline ostream& operator<<(ostream& s, PhoneSet &p)
+inline std::ostream& operator<<(std::ostream& s, PhoneSet &p)
 {
     s << p.phone_set_name(); return s;
 }

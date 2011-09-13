@@ -51,6 +51,9 @@ typedef HANDLE SERVER_FD;
 typedef FILE *SERVER_FD;
 #endif
 
+using std::cerr;
+using std::endl;
+
 static void festival_client_main(int argc, char **argv);
 static void copy_to_server(FILE *fdin,SERVER_FD serverfd);
 static void ttw_file(SERVER_FD serverfd, const EST_String &file);

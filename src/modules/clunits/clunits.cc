@@ -84,6 +84,9 @@ static EST_String static_jscore = "local_join_cost";
 static EST_String static_tscore = "local_target_cost";
 static EST_String static_cscore = "cummulative_unit_score";
 
+using std::cerr;
+using std::endl;
+
 static void setup_clunits_params();
 static EST_VTCandidate *TS_candlist(EST_Item *s,EST_Features &f);
 static EST_VTPath *TS_npath(EST_VTPath *p,EST_VTCandidate *c,EST_Features &f);

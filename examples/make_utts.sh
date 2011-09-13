@@ -44,7 +44,7 @@
 ;;; Because this is a --script type file it has to explicitly
 ;;; load the initfiles: init.scm and user's .festivalrc
 (if (not (symbol-bound? 'caar))
-    (load (path-append libdir "init.scm")))
+    (load (path-append datadir "init.scm")))
 
 ;;;  Some parts are potentially editable
 (defvar basic_relations '((Phrase segmental ())

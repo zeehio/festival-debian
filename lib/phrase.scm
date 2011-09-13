@@ -93,7 +93,7 @@ in Token return punc, otherwise 0."
 
 (require 'pos)   ;; for part of speech map
 
-(defvar pbreak_ngram_dir libdir
+(defvar pbreak_ngram_dir datadir
   "pbreak_ngram_dir
   The directory containing the ngram models for predicting phrase
   breaks.  By default this is the standard library directory.")

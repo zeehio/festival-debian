@@ -45,6 +45,8 @@
 // this isn't as efficient as it might be, but we aren't going to be
 // doing this inside any loops
 
+using std::cerr;
+
 LISP lisp_parameter_get(const EST_String parameter_name)
 {
   LISP parameter_get = siod_get_lval("Parameter.get", "Parameter.get not defined");
