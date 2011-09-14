@@ -38,7 +38,7 @@ Index: b/doc/Makefile
  	cat $^ >$@
  %.options : $(TOP)/src/main/%
 -	$(TOP)/bin/$* -man_options >$@
-+	$(TOP)/src/main/$* -man_options >$@
++	$(TOP)/src/main/$* -man_options |sed 's#--#\\-\\-#' >$@
  %.options : $(TOP)/src/main/%.exe
 -	$(TOP)/bin/$* -man_options >$@
 +	$(TOP)/src/main/$* -man_options >$@

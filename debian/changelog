@@ -1,3 +1,10 @@
+festival (1:2.1~release-2.2) UNRELEASED; urgency=low
+
+  * Commits from Jean-Philippe incorporated in master
+  * Fix spelling and hyphen lintian problems
+
+ -- Peter Drysdale <drysdalepete@gmail.com>  Wed, 14 Sep 2011 20:57:05 +1000
+
 festival (1:2.1~release-2.1) UNRELEASED; urgency=low
 
   * Non-maintainer upload.
@@ -6,11 +13,13 @@ festival (1:2.1~release-2.1) UNRELEASED; urgency=low
 
  -- Peter Drysdale <drysdalepete@gmail.com>  Tue, 13 Sep 2011 20:57:05 +1000
 
-festival (1:2.1~release-2) UNRELEASED; urgency=low
-
-  * Bump Standards-Version to 3.9.2 (no change needed)
-
- -- Samuel Thibault <sthibault@debian.org>  Sun, 10 Apr 2011 20:38:17 +0200
+festival (1:2.1~release-2) UNRELEASED unstable; urgency=low
+ 
+   * New maintainer (closes: #601596)
+   * Bump Standards-Version to 3.9.2 (no change needed) Samuel Thibault
+   * Fixed debian/patches/lib_festival.scm.diff (desplays replaced with displays)
+ 
+ -- Jean-Philippe MENGUAL <texou@accelibreinfo.eu>  Tue, 16 Aug 2011 02:18:09 +0200
 
 festival (1:2.1~release-1) unstable; urgency=low
 

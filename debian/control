@@ -1,7 +1,7 @@
 Source: festival
 Section: sound
 Priority: optional
-Maintainer: Kartik Mistry <kartik@debian.org>
+Maintainer: Jean-Philippe MENGUAL <texou@accelibreinfo.eu>
 Uploaders: Kumar Appaiah <akumar@debian.org>,
  Jaldhar H. Vyas <jaldhar@debian.org>
  Peter Drysdale <drysdalepete@gmail.com>
@@ -25,7 +25,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
          lsb-base (>= 3.0-10),
          sysv-rc (>= 2.86.ds1) | file-rc
 Recommends: festvox-kallpc16k | festival-voice
-Conflicts: festvox-rablpc8k (<< 1.4.0-2),
+Breaks: festvox-rablpc8k (<< 1.4.0-2),
            festvox-rablpc16k (<< 1.4.0-2),
            festvox-kdlpc16k (<< 1.4.0-4),
            festvox-kdlpc8k (<< 1.4.0-5),

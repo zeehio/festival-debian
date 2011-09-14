@@ -95,4 +95,5 @@ src_modules_UniSyn_us_features.cc.diff
 testsuite_data_modes.scm.diff
 russian_patch.diff
 festival_el_utf8.diff
+lintianspellpatch.diff
 
