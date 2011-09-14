@@ -54,9 +54,8 @@ include $(TOP)/config/common_make_rules
 
 $(ALL) : % : %.sh
 	rm -f $@
-	@echo "#!/usr/bin/festival --script" >$@
-#	@echo "#!/bin/sh" >$@
-#	@echo "\"true\" ; exec "/usr/bin/festival --script '$$0 $$*' >>$@
+	@echo "#!/bin/sh" >$@
+	@echo "\"true\" ; exec "$(FESTIVAL_HOME)/bin/festival --script '$$0 $$*' >>$@
 	cat $< >>$@
 	chmod +x $@
 

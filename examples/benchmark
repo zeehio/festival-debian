@@ -1,7 +1,6 @@
 #!/bin/sh
 
-default_libdir="/usr/lib/festival"
-default_datadir="/usr/share/festival"
+default_libdir="/projects/festival/lib"
 
 while true
 	do
@@ -12,17 +11,13 @@ while true
 	-l ) libdir="$2"
 		shift 2
 		;;
-	-d ) datadir="$2"
-		shift 2
-		;;
-	-- ) shift; break ;;
 	* ) break;;
 	esac
 done
 
-text=${1-"/usr/share/doc/festival/examples/benchmark.text"}
+text=${1-"$HOME/projects/festival/examples/benchmark.text"}
 
-for i in /usr/bin . src/main ../src/main $HOME/projects/festival/src/main /cstr/bin
+for i in . src/main ../src/main $HOME/projects/festival/src/main /cstr/bin
 	do
 	if [ -n "$festival" ]
 		then
@@ -44,15 +39,7 @@ if [ -z "$libdir" ]
 	then
 	case $festival in 
 	*main/festival )	libdir=`dirname $festival`/../../lib;;
-	* ) libdir=$default_libdir;
-	esac
-fi
-
-if [ -z "$datadir" ]
-	then
-	case $festival in 
-	*main/festival )   datadir=`dirname $festival`/../../share;;
-	* ) datadir=$default_datadir;;
+	* ) libdir=$default_libdir;;
 	esac
 fi
 
@@ -67,11 +54,10 @@ echo -n > $flag_file;
 cat > $script <<__END__
 
 (set! libdir "$libdir/")
-(set! datadir "$datadir/")
-(set! lexdir "$default_datadir/dicts/")
-(set! voiced_dir "$default_datadir/voices/")
+(set! lexdir "$default_libdir/dicts/")
+(set! voiced_dir "$default_libdir/voices/")
 
-(load (string-append datadir "init.scm"))
+(load (string-append libdir "init.scm"))
 (if (probe_file (format nil "%s/.festivalrc" (getenv "HOME")))
     (load (format nil "%s/.festivalrc" (getenv "HOME"))))
 

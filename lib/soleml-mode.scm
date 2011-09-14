@@ -330,7 +330,7 @@ Flatten alist arguments."
        (list 'exit_func soleml_exit_func)
        '(analysis_type xxml)
        (list 'filter 
-	     (format nil "%s -D %s " sgml_parse_progname datadir))))
+	     (format nil "%s -D %s " sgml_parse_progname libdir))))
     tts_text_modes))
 
 (provide 'soleml-mode)

@@ -50,7 +50,7 @@ template <> TCData* EST_THash< EST_Item*, TCData* >::Dummy_Value=0;
 
 #if defined(INSTANTIATE_TEMPLATES)
 
-#include "/usr/include/speech_tools/base_class/EST_THash.cc"
+#include "../base_class/EST_THash.cc"
 
 Instantiate_THash_T(EST_Item*, TCData*, TCDataP)
 

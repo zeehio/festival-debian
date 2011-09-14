@@ -47,9 +47,6 @@
 #include "winsock2.h"
 #endif
 
-using std::cerr;
-using std::endl;
-
 static void utt_save_f0_from_targets(EST_Utterance *u,EST_String &filename);
 static float f0_interpolate(EST_Item *ptval, EST_Item *tval, float time);
 

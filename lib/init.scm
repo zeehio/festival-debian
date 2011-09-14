@@ -36,15 +36,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;  Basic siod library (need this before load_library or require works)
-(load (path-append datadir "siod.scm"))
+(load (path-append libdir "siod.scm"))
 
 (defvar home-directory (or (getenv "HOME") "/")
   "home-directory
    Place looked at for .festivalrc etc.")
-
-;;; system-wide startup initialization
-(if (probe_file (path-append sysconfdir "festivalvars.scm"))
-	(load (path-append sysconfdir "festivalvars.scm")))
 
 ;;;  User startup initialization, can be used to override load-path
 ;;;  to allow alternate basic modules to be loaded.
@@ -53,6 +49,11 @@
 
 (if (probe_file (path-append home-directory ".festivalvarsrc"))
     (load (path-append home-directory ".festivalvarsrc")))
+
+;;;  A chance to set various variables to a local setting e.g.
+;;;  lexdir, voices_dir audio etc etc.
+(if (probe_file (path-append libdir "sitevars.scm"))
+    (load (path-append libdir "sitevars.scm")))
 
 ;;; CSTR siod extensions
 (require 'cstr)
@@ -74,6 +75,10 @@
 
 ;;; Set default audio method
 (cond
+ ((member 'nas *modules*)
+  (Parameter.def 'Audio_Method 'netaudio))
+ ((member 'esd *modules*)
+  (Parameter.def 'Audio_Method 'esdaudio))
  ((member 'sun16audio *modules*)
   (Parameter.def 'Audio_Method 'sun16audio))
  ((member 'freebsd16audio *modules*)
@@ -90,14 +95,10 @@
   (Parameter.def 'Audio_Method 'os2audio))
  ((member 'mplayeraudio *modules*)
   (Parameter.def 'Audio_Method 'mplayeraudio))
- ((member 'nas *modules*)
-  (Parameter.def 'Audio_Method 'netaudio))
- ((member 'esd *modules*)
-  (Parameter.def 'Audio_Method 'esdaudio))
  (t  ;; can't find direct support so guess that /dev/audio for 8k ulaw exists
   (Parameter.def 'Audio_Method 'sunaudio)))
 ;;;  If you have an external program to play audio add its definition
-;;;  in /etc/festival.scm
+;;;  in siteinit.scm
 
 ;;; The audio spooler doesn't work under Windows so redefine audio_mode
 (if (member 'mplayeraudio *modules*)
@@ -134,8 +135,8 @@
 ;;;
 ;;;  Local site initialization, if the file exists load it
 ;;;
-(if (probe_file (path-append sysconfdir "festival.scm"))
-    (load (path-append sysconfdir "festival.scm")))
+(if (probe_file (path-append libdir "siteinit.scm"))
+    (load (path-append libdir "siteinit.scm")))
 
 ;;;  User initialization, if a user has a personal customization
 ;;;  file loaded it

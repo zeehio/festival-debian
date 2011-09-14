@@ -51,8 +51,8 @@ Declare_TList_T(EST_Item *, EST_ItemP)
 
 #if defined(INSTANTIATE_TEMPLATES)
 
-#include "/usr/include/speech_tools/base_class/EST_TList.cc"
-#include "/usr/include/speech_tools/base_class/EST_TSortable.cc"
+#include "../base_class/EST_TList.cc"
+#include "../base_class/EST_TSortable.cc"
 
 Instantiate_TList_T(EST_Item *, EST_ItemP)
 

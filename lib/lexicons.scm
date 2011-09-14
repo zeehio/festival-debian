@@ -42,10 +42,10 @@
 ;;;  you should set lexdir in sitevars.scm
 
 (defvar lexdir 
-  (if (probe_file (path-append datadir "dicts"))
-      (path-append datadir "dicts/")
+  (if (probe_file (path-append libdir "dicts"))
+      (path-append libdir "dicts/")
       ;; else we'll guess we're in the CSTR filespace
-      (path-as-directory "/usr/share/festival/dicts/"))
+      (path-as-directory "/projects/festival/lib/dicts/"))
   "lexdir
   The directory where the lexicon(s) are, by default.")
 

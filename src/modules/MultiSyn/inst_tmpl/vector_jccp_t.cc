@@ -50,8 +50,8 @@ Declare_TSimpleVector_T(EST_JoinCostCache*,EST_JoinCostCacheP)
 
 #if defined(INSTANTIATE_TEMPLATES)
 
-#include "/usr/include/speech_tools/base_class/EST_TSimpleVector.cc"
-#include "/usr/include/speech_tools/base_class/EST_TVector.cc"
+#include "../base_class/EST_TSimpleVector.cc"
+#include "../base_class/EST_TVector.cc"
 
 Instantiate_TVector_T_MIN(EST_JoinCostCache*,EST_JoinCostCacheP)
 Instantiate_TSimpleVector(EST_JoinCostCache*)

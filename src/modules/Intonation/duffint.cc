@@ -41,9 +41,6 @@
 #include "festival.h"
 #include "intonation.h"
 
-using std::cout;
-using std::endl;
-
 LISP FT_Intonation_Default_Utt(LISP utt)
 {
     return utt;

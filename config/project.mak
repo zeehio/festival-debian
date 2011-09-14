@@ -71,8 +71,8 @@ ALL_MODULES = \
 
 # Place where programs are compiled
 
-PROJECT_MAIN_DIR=$(TOP)/src/main
-PROJECT_SCRIPTS_DIR=$(TOP)/src/scripts
+PROJECT_MAIN_DIR=$(FESTIVAL_HOME)/src/main
+PROJECT_SCRIPTS_DIR=$(FESTIVAL_HOME)/src/scripts
 
 # Where the main RCS tree is, probably only used within CSTR
 
@@ -87,9 +87,9 @@ PROJECT_DEFAULT_LIBRARY = Festival
 # Libraries used from other projects
 
 REQUIRED_LIBRARIES = estools estbase eststring
-REQUIRED_LIBRARY_DIR_estools = /usr/lib
-REQUIRED_LIBRARY_DIR_estbase = /usr/lib
-REQUIRED_LIBRARY_DIR_eststring = /usr/lib
+REQUIRED_LIBRARY_DIR_estools = $(EST)/lib
+REQUIRED_LIBRARY_DIR_estbase = $(EST)/lib
+REQUIRED_LIBRARY_DIR_eststring = $(EST)/lib
 
 REQUIRED_MAKE_INCLUDE = $(EST)/make.include
 

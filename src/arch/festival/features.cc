@@ -79,9 +79,6 @@
 #include "festival.h"
 #include "festivalP.h"
 
-using std::cerr;
-using std::endl;
-
 static LISP ff_pref_assoc(const char *name, LISP alist);
 
 static LISP ff_docstrings = NULL;

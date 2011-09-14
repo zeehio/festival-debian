@@ -44,7 +44,7 @@ MAIN_TO_DOCUMENT=
 
 EXAMPLE_TO_DOCUMENT=
 
-FESTIVAL=$(TOP)/src/main/festival --libdir $(TOP)/lib --datadir $(TOP)/lib
+FESTIVAL=$(TOP)/bin/festival --libdir $(TOP)/lib
 
 # Include some of EST documentation.
 DOCXX_EXTRA_FILES = 
@@ -56,8 +56,7 @@ DOCXXFILES=  classHeader.inc hierHeader.inc indexHeader.inc \
 	     banner.inc $(DOCXXIMAGES)
 
 MANPAGES = festival.head festival.tail \
-           festival_client.head festival_client.tail \
-		   text2wave.head text2wave.tail
+           festival_client.head festival_client.tail
 
 #SGMLFILES = festival.sgml \
 #	introductory.sgml basics.sgml core.sgml advanced.sgml programming.sgml
@@ -65,7 +64,7 @@ MANPAGES = festival.head festival.tail \
 FILES=Makefile $(MANPAGES) festival.texi $(SGMLFILES) refcard.tex  $(DOCXXFILES)
 LOCAL_CLEAN = *.aux *.cp *.fn *.ky *.log *.pg *.toc *.tp *.vr
 
-ALL = festival.1 festival_client.1 text2wave.1
+ALL = festival.1 festival_client.1
 
 include $(TOP)/config/common_make_rules
 include $(EST)/config/rules/doc.mak
@@ -73,9 +72,9 @@ include $(EST)/config/rules/doc.mak
 %.1 : %.head %.options %.tail 
 	cat $^ >$@
 %.options : $(TOP)/src/main/%
-	$(TOP)/src/main/$* -man_options >$@
+	$(TOP)/bin/$* -man_options >$@
 %.options : $(TOP)/src/main/%.exe
-	$(TOP)/src/main/$* -man_options >$@
+	$(TOP)/bin/$* -man_options >$@
 
 festival.info: festival.texi festfunc.texi festvars.texi festfeat.texi
 	@ if [ ! -d info ] ; \
@@ -105,8 +104,8 @@ festival.dvi: festival.texi festfunc.texi festvars.texi
 	tex festival.texi
 doc:	festival.ps festival.html festival.info
 
-festfunc.texi festvars.texi festfeat.texi: $(TOP)/src/main/festival doc.scm
-	$(FESTIVAL) < doc.scm
+festfunc.texi festvars.texi festfeat.texi: $(TOP)/src/main/festival
+	echo "(load_library \"festdoc.scm\") (make-doc)" | $(FESTIVAL)
 
 refcard.dvi:	refcard.tex
 	latex refcard.tex

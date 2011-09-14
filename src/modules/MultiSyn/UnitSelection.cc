@@ -468,7 +468,7 @@ static LISP FT_du_voice_setJoinCost(LISP l_voice, LISP l_tc)
 	CHECK_PTR(jc);
       }
       else
-	EST_error( "du_voice_setJoinCost: currently t is the only supported second argument" );
+	EST_error( "du_voice_setJoinCost: currently t is the only supported second arguement" );
       
       duv->setJoinCost(jc,true);
     }

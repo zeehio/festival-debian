@@ -40,7 +40,7 @@
 
 ;;; Because this is a --script type file I has to explicitly
 ;;; load the initfiles: init.scm and user's .festivalrc
-(load (path-append datadir "init.scm"))
+(load (path-append libdir "init.scm"))
 
 ;;; Process command line arguments
 (define (text2wave_help)
@@ -50,7 +50,7 @@
   Options
   -mode <string>  Explicit tts mode.
   -o ofile        File to save waveform (default is stdout).
-  -otype <string> Output waveform type: alaw, ulaw, snd, aiff, riff, nist etc.
+  -otype <string> Output waveform type: ulaw, snd, aiff, riff, nist etc.
                   (default is riff)
   -F <int>        Output frequency.
   -scale <float>  Volume factor

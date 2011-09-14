@@ -51,7 +51,7 @@ LOCAL_CLEAN= Templates.DB
 ALL = .config_error $(BUILD_DIRS)
 
 # Try and say if config hasn't been created
-#config_dummy := $(shell test -f config/config || ( echo '*** '; echo '*** Making default config file ***'; echo '*** '; ./configure; )  >&2)
+config_dummy := $(shell test -f config/config || ( echo '*** '; echo '*** Making default config file ***'; echo '*** '; ./configure; )  >&2)
 
 # force a check on the system file
 system_dummy := $(shell $(MAKE) -C $(TOP)/config -f make_system.mak TOP=.. system.mak)
@@ -75,9 +75,8 @@ time-stamp :
 test:
 	@ $(MAKE) --no-print-directory -C testsuite test
 
-# Conflicts with Debian build setup
-#config/config: config/config.in config.status
-#	./config.status
+config/config: config/config.in config.status
+	./config.status
 
 configure: configure.in
 	autoconf

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-festival (1:2.1~release-3) unstable; urgency=low
-=======
 festival (1:2.1~release-2.1) UNRELEASED; urgency=low
 
   * Non-maintainer upload.
@@ -10,21 +7,10 @@ festival (1:2.1~release-2.1) UNRELEASED; urgency=low
  -- Peter Drysdale <drysdalepete@gmail.com>  Tue, 13 Sep 2011 20:57:05 +1000
 
 festival (1:2.1~release-2) UNRELEASED; urgency=low
->>>>>>> f3c510e49906124d51fdd648b750f4664de9f2b3
 
-  * Added 3 patches to fix some lintian problems and add a feature now
-included in the package. Thanks to Peter Drysdale.
+  * Bump Standards-Version to 3.9.2 (no change needed)
 
- -- jp <jp@medion>  Sun, 28 Aug 2011 13:41:24 +0200
-
-festival (1:2.1~release-2) unstable; urgency=low
-
-  * New maintainer (closes: #601596)
-  * Updated to follow the last version of Debian Policy
-  * Added a source/format file
-  * Fixed debian/patches/lib_festival.scm.diff (desplays replaced with displays)
-
- -- Jean-Philippe MENGUAL <texou@accelibreinfo.eu>  Tue, 16 Aug 2011 02:18:09 +0200
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 10 Apr 2011 20:38:17 +0200
 
 festival (1:2.1~release-1) unstable; urgency=low
 

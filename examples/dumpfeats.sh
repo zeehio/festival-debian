@@ -39,7 +39,7 @@
 
 ;;; Because this is a --script type file it has to explicitly
 ;;; load the initfiles: init.scm and user's .festivalrc
-(load (path-append datadir "init.scm"))
+(load (path-append libdir "init.scm"))
 
 (define (dumpfeats_help)
   (format t "%s\n"

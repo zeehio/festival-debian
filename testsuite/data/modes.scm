@@ -42,13 +42,13 @@
 
 (format t "\n\nSABLE mode\n")
 (unwind-protect
- (tts "/usr/share/doc/festival/examples/example2.sable" 'sable))
+ (tts (string-append libdir "/../examples/example2.sable") nil))
 (format t "\n\nOGI's mark up mode\n")
 (unwind-protect 
- (tts "/usr/share/doc/festival/examples/ex1.ogi" 'ogimarkup))
+ (tts (string-append libdir "/../examples/ex1.ogi") 'ogimarkup))
 (format t "\n\nAn email mode\n")
 (unwind-protect
- (tts "/usr/share/doc/festival/examples/ex1.email" nil))
+ (tts (string-append libdir "/../examples/ex1.email") nil))
 
 (voice_kal_diphone)
 (format t "\n\nA singing mode\n")

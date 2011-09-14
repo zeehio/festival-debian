@@ -50,7 +50,7 @@ void festival_ngram_init();
 void festival_wfst_init();
 void festival_fringe_init(void);
 
-extern std::ostream *cslog; 
+extern ostream *cslog; 
 
 LISP l_audio_mode(LISP mode);
 void audsp_play_wave(EST_Wave *w);

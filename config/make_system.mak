@@ -38,10 +38,6 @@
  ##                                                                       ##
  ###########################################################################
 
-MACHINETYPE=unknown
-OSTYPE=unknown
-include config
-
 system.mak : config
 	@echo Check system type >&2
 	@/bin/sh  $(TOP)/config/system.sh $(TOP)/config/systems > system.mak
