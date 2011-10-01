@@ -5,15 +5,6 @@ Index: festival/src/arch/festival/festival.cc
 ===================================================================
 --- festival.orig/src/arch/festival/festival.cc	2010-03-23 14:26:34.000000000 -0500
 +++ festival/src/arch/festival/festival.cc	2010-07-17 08:00:43.000000000 -0500
-@@ -46,6 +46,8 @@
- #include "siod.h"
- #include "ModuleDescription.h"
- 
-+using namespace std;
-+
- void festival_lisp_funcs(void);
- void festival_lisp_vars(void);
- void festival_banner(void);
 @@ -55,6 +57,9 @@
  #define STRINGIZE(S) _S_S_S(S)
  

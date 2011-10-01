@@ -5,16 +5,6 @@ Index: b/src/main/festival_main.cc
 ===================================================================
 --- a/src/main/festival_main.cc
 +++ b/src/main/festival_main.cc
-@@ -44,6 +44,9 @@
- 
- #include "festival.h"
- 
-+using std::cerr;
-+using std::endl;
-+
- static void festival_main(int argc, char **argv);
- static int festival_check_script_mode(int argc, char **argv);
- static void festival_script_mode(int argc, char **argv);
 @@ -88,6 +91,8 @@
          "In evaluation mode \"filenames\" starting with ( are evaluated inline\n"+
  	"Festival Speech Synthesis System: "+ festival_version +"\n"+
@@ -36,13 +26,4 @@ Index: b/src/main/festival_main.cc
 +
      if (al.present("--heap"))
  	heap_size = al.ival("--heap");
- 
-@@ -233,7 +244,7 @@
- 
-     if (argc < 2)
-     {   
--	cerr << "festival: script_mode has no file to interpret" << endl;
-+	std::cerr << "festival: script_mode has no file to interpret" << std::endl;
- 	return;
-     }
  

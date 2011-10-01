@@ -5,15 +5,6 @@ Index: b/src/include/festival.h
 ===================================================================
 --- a/src/include/festival.h
 +++ b/src/include/festival.h
-@@ -58,7 +58,7 @@
- 
- /* An iostream for outputing debug messages, switchable    */
- /* to /dev/null or cerr                                    */
--extern ostream *cdebug;
-+extern std::ostream *cdebug;
- #define cwarn cout
- extern "C" FILE* stddebug;
- extern int ft_server_socket;
 @@ -137,6 +137,7 @@
  void add_item_features(EST_Item *s,LISP features);
  
