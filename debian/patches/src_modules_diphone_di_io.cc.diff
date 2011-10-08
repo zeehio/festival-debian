@@ -1,5 +1,5 @@
 This patch is part of a series of patches for festival for
-Debian GNU/Linux, which primarily fix build errors with GCC 4.3 and newer.
+Debian GNU/Linux, to allow alaw output (asterisk interoperability)
 
 Index: b/src/modules/diphone/di_io.cc
 ===================================================================

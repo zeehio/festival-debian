@@ -1,5 +1,6 @@
-This patch is part of a series of patches for festival for
-Debian GNU/Linux, which primarily fix build errors with GCC 4.3 and newer.
+This patch for festival for Debian GNU/Linux, implements a Debian
+specific system initalization and changes order of default audio method
+assignment
 
 Index: b/lib/init.scm
 ===================================================================

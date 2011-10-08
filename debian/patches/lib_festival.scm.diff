@@ -1,5 +1,6 @@
-This patch is part of a series of patches for festival for
-Debian GNU/Linux, which primarily fix build errors with GCC 4.3 and newer.
+This patch is for festival for Debian GNU/Linux, it adjusts server
+access list, corrects spelling, ensures compliance with Filesystem
+Hierarchy Standard and sets default audio backend to ALSA
 
 Index: b/lib/festival.scm
 ===================================================================

@@ -2,9 +2,10 @@ festival (1:2.1~release-2.2) UNRELEASED; urgency=low
 
   * Commits from Jean-Philippe incorporated in master
   * Fix spelling and hyphen lintian problems
-  * Remove parts of redundant namespace patching
+  * Remove parts of redundant namespace patching and individually title
+    patches. Gcc version patching no longer needed (Closes:  #592052)
 
- -- Peter Drysdale <drysdalepete@gmail.com>  Wed, 21 Sep 2011 20:57:05 +1000
+ -- Peter Drysdale <drysdalepete@gmail.com>  Sat, 08 Oct 2011 12:57:05 +1000
 
 festival (1:2.1~release-2.1) UNRELEASED; urgency=low
 

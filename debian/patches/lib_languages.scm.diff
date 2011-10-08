@@ -1,5 +1,5 @@
-This patch is part of a series of patches for festival for
-Debian GNU/Linux, which primarily fix build errors with GCC 4.3 and newer.
+This patch for festival for Debian GNU/Linux, configures
+additional language loading support from festival command line
 
 Index: b/lib/languages.scm
 ===================================================================
