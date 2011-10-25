@@ -6,7 +6,7 @@ Festival for Debian
 
   - The standard .scm files are located in /usr/share/festival.
   - DTDs and related files are in /usr/share/sgml/festival.
-  - HTS 2.1 backward compatability module s provided for festival.
+  - HTS 2.1 backward compatibility module s provided for festival.
 
   Feel free to submit patches.
 
