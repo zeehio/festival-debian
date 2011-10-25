@@ -5,8 +5,9 @@ festival (1:2.1~release-2.2) UNRELEASED; urgency=low
   * Move to dh style packaging
   * Remove parts of redundant namespace patching and individually title
     patches. Gcc version patching no longer needed (Closes:  #592052)
+  * Provide HTS compatability module for HTS 2.1 voices (Closes: #589614)
 
- -- Peter Drysdale <drysdalepete@gmail.com>  Thu, 20 Oct 2011 09:57:05 +1000
+ -- Peter Drysdale <drysdalepete@gmail.com>  Tue, 25 Oct 2011 21:01:05 +1000
 
 festival (1:2.1~release-2.1) UNRELEASED; urgency=low
 

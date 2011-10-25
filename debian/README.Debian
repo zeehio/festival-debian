@@ -6,6 +6,7 @@ Festival for Debian
 
   - The standard .scm files are located in /usr/share/festival.
   - DTDs and related files are in /usr/share/sgml/festival.
+  - HTS 2.1 backward compatability module s provided for festival.
 
   Feel free to submit patches.
 
@@ -64,3 +65,37 @@ Festival for Debian
   as freebsd16audio, mplayeraudio etc.
 
  -- Kumar Appaiah <akumar@debian.org>, Wed, 27 Oct 2010 09:07:45 -0500
+
+  Use of HTS 2.1 compatibility module:
+  ------------------------------------
+
+  From festival 2.095 onward festival upstream no longer supports older
+  HTS 2.1 version voices. The popularity of such voices is so large 
+  that for we provide a "forward ported" module from an earlier version of
+  festival (version 1.96) to allow the use of these voices. In order to use
+  the voice with the Debian provided compatibility module (known as the
+  "hts21_engine") two slight changes must be made to the voice.
+  These lines are in a file in the festvox directory of the voice but
+  the name of the file changes from voice to voice. The lines to be replaced
+  are the following:
+
+  (require 'hts)
+
+  must be replaced with:
+
+  (require 'hts21compat)
+
+  and the line:
+
+  (Parameter.set 'Synth_Method 'HTS)
+
+  must be replaced with:
+
+  (Parameter.set 'Synth_Method 'HTS21)
+
+  Please note the compatibility module is intended to operate separately 
+  and in parallel with the modern HTS engine known as "hts_engine".
+  There is no need to modify newer HTS 2.1.1 voices. They use "hts_engine".
+  We recommend that you move to newer voices when available as the 
+  "hts21_engine" may not be ported to future releases in Debian of festival.
+
