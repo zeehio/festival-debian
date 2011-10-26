@@ -26,7 +26,6 @@ examples_text2wave.sh.diff
 lib_festdoc.scm.diff
 lib_festival.scm.diff
 lib_init.scm.diff
-lib_languages.scm.diff
 lib_lexicons.scm.diff
 lib_phrase.scm.diff
 lib_sable-mode.scm.diff
@@ -49,8 +48,8 @@ src_modules_donovan_t2s.h.diff
 src_modules_MultiSyn_path_fixes.diff
 src_modules_UniSyn_diphone_UniSyn_diphone.cc.diff
 testsuite_data_modes.scm.diff
-russian_patch.diff
 festival_el_utf8.diff
 lintianspellpatch.diff
 
 hts21compat.diff
+languagespatch.diff
