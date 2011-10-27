@@ -1,5 +1,6 @@
 festival (1:2.1~release-2.2) UNRELEASED; urgency=low
 
+  * Non-maintainer upload.
   * Commits from Jean-Philippe incorporated in master
   * Fix spelling and hyphen lintian problems
   * Move to dh style packaging

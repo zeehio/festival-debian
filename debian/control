@@ -3,14 +3,13 @@ Section: sound
 Priority: optional
 Maintainer: Jean-Philippe MENGUAL <texou@accelibreinfo.eu>
 Uploaders: Kumar Appaiah <akumar@debian.org>,
- Jaldhar H. Vyas <jaldhar@debian.org>
+ Jaldhar H. Vyas <jaldhar@debian.org>,
  Peter Drysdale <drysdalepete@gmail.com>
-Build-Depends: debhelper (>= 7.0.5~),
+Build-Depends: debhelper (>= 8),
                autotools-dev,
                libesd0-dev,
                libestools2.1-dev,
                libncurses5-dev,
-               quilt (>= 0.40),
                texinfo
 Standards-Version: 3.9.2
 Homepage: http://www.cstr.ed.ac.uk/projects/festival/
