@@ -93,7 +93,7 @@ The merging was performed by Peter Drysdale.
 +   aliases such as english-> british_english.")
 +
 +(define (language.names.add language aliases)
-+"(language.alias.add LANGUAGE ALIASES)
++"(language.names.add LANGUAGE ALIASES)
 +Describe a language to the systen. LANGUAGE should be atomic name, that
 +conventionally will have language_ prepended to name the basic selection
 +function. ALIASES is a list of names for that language."
