@@ -22,9 +22,6 @@ endif
 	$(MAKE)
 	cd doc && $(MAKE) festival.info
 
-override_dh_auto_clean:
-	[ ! -f Makefile ] || $(MAKE) clean
-
 override_dh_clean:
 	find . -name make.depend -print0 | xargs -0r $(RM)
 	find . -name make.include -print0 | xargs -0r $(RM)
