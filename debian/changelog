@@ -1,4 +1,4 @@
-festival (1:2.1~release-2) UNRELEASED unstable; urgency=low
+festival (1:2.1~release-2) unstable; urgency=low
 
   [ Peter Drysdale ]
   * Commits from Jean-Philippe incorporated in master
@@ -16,8 +16,8 @@ festival (1:2.1~release-2) UNRELEASED unstable; urgency=low
   * debian/control: depend on quilt.
 
   [ Jean-Philippe MENGUAL ]
-   * Bump Standards-Version to 3.9.2 (no change needed) Samuel Thibault
-   * Fixed debian/patches/lib_festival.scm.diff (desplays replaced with displays)
+  * Bump Standards-Version to 3.9.2 (no change needed)
+  * Fixed debian/patches/lib_festival.scm.diff (desplays replaced with displays)
  
  -- Jean-Philippe MENGUAL <texou@accelibreinfo.eu>  Tue, 16 Aug 2011 02:18:09 +0200
 
