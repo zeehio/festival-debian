@@ -23,7 +23,7 @@ endif
 	cd doc && $(MAKE) festival.info
 
 override_dh_auto_clean:
-	QUILT_PATCHES=debian/patches quilt push config_config.diff
+	-QUILT_PATCHES=debian/patches quilt push config_config.diff
 	[ ! -f Makefile ] || $(MAKE) clean
 	dh_quilt_unpatch
 
