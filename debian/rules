@@ -33,6 +33,7 @@ override_dh_clean:
 	     -o -type f ! -name Makefile -print0 | xargs -0r $(RM)
 	rm -rf doc/*.1 doc/festfeat.texi doc/festvars.texi doc/festfunc.texi \
 	       doc/info src/modules/hts21_engine/*.o
+	-rmdir src/modules/hts21_engine
 	rm -f config/modincludes.inc config/system.mak
 	rm -f bin/festival*
 	rm -f config.sub config.guess config.log config.status config.cache
