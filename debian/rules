@@ -25,7 +25,6 @@ endif
 override_dh_auto_clean:
 	-QUILT_PATCHES=debian/patches quilt push config_config.diff
 	[ ! -f Makefile ] || $(MAKE) clean
-	dh_quilt_unpatch
 
 override_dh_clean:
 	find . -name make.depend -print0 | xargs -0r $(RM)
