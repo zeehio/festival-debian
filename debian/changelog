@@ -1,4 +1,4 @@
-festival (1:2.1~release-3) UNRELEASED; urgency=low
+festival (1:2.1~release-2) UNRELEASED unstable; urgency=low
 
   [ Peter Drysdale ]
   * Commits from Jean-Philippe incorporated in master
@@ -8,24 +8,14 @@ festival (1:2.1~release-3) UNRELEASED; urgency=low
     patches. Gcc version patching no longer needed (Closes:  #592052)
   * Provide HTS compatibility module for HTS 2.1 voices (Closes: #589614)
   * General way of adding languages from Sergio Oller (Closes: #606173)
+  * Include clustergen module which is on in 2.1 (Closes: #639648)
+  * Add Peter Drysdale to uploaders
 
   [ Samuel Thibault ]
   * debian/rules: fix clean rules.
   * debian/control: depend on quilt.
 
- -- Samuel Thibault <sthibault@debian.org>  Sun, 08 Jan 2012 01:51:12 +0100
-
-festival (1:2.1~release-2.1) UNRELEASED; urgency=low
-
-  * Non-maintainer upload.
-  * Include clustergen module which is on in 2.1 (Closes: #639648)
-  * Add Peter Drysdale to uploaders
-
- -- Peter Drysdale <drysdalepete@gmail.com>  Tue, 13 Sep 2011 20:57:05 +1000
-
-festival (1:2.1~release-2) UNRELEASED unstable; urgency=low
- 
-   * New maintainer (closes: #601596)
+  [ Jean-Philippe MENGUAL ]
    * Bump Standards-Version to 3.9.2 (no change needed) Samuel Thibault
    * Fixed debian/patches/lib_festival.scm.diff (desplays replaced with displays)
  
