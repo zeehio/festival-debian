@@ -32,12 +32,13 @@ override_dh_clean:
 	find bin/ \( -name SCCS -o -name RCS -o -name CVS \) -prune \
 	     -o -type f ! -name Makefile -print0 | xargs -0r $(RM)
 	rm -rf doc/*.1 doc/festfeat.texi doc/festvars.texi doc/festfunc.texi \
-	       doc/info src/modules/hts21_engine/*.o
-	-rmdir src/modules/hts21_engine
+	       doc/info src/modules/hts21_engine/*.o \
+	       src/modules/hts21_engine/.buildlib_Festival
 	rm -f config/modincludes.inc config/system.mak
 	rm -f bin/festival*
 	rm -f config.sub config.guess config.log config.status config.cache
 	dh_quilt_unpatch
+	-rmdir src/modules/hts21_engine
 	dh_clean
 
 override_dh_installinit:
