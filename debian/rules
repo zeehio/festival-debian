@@ -37,7 +37,6 @@ override_dh_clean:
 	rm -f config/modincludes.inc config/system.mak
 	rm -f bin/festival*
 	rm -f config.sub config.guess config.log config.status config.cache
-	dh_quilt_unpatch
 	-rmdir src/modules/hts21_engine
 	dh_clean
 
