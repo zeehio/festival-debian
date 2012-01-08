@@ -1,3 +1,10 @@
+festival (1:2.1~release-3) unstable; urgency=low
+
+  [ Samuel Thibault ]
+  * debian/rules: Fix clean rule again.
+
+ -- Jean-Philippe MENGUAL <texou@accelibreinfo.eu>  Sun, 08 Jan 2012 03:07:32 +0100
+
 festival (1:2.1~release-2) unstable; urgency=low
 
   [ Peter Drysdale ]
