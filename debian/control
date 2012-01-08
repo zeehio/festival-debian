@@ -10,7 +10,8 @@ Build-Depends: debhelper (>= 8),
                libesd0-dev,
                libestools2.1-dev,
                libncurses5-dev,
-               texinfo
+               texinfo,
+               quilt
 Standards-Version: 3.9.2
 Homepage: http://www.cstr.ed.ac.uk/projects/festival/
 Vcs-Git: git://git.debian.org/git/tts/festival.git

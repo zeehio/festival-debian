@@ -1,6 +1,6 @@
-festival (1:2.1~release-2.2) UNRELEASED; urgency=low
+festival (1:2.1~release-3) UNRELEASED; urgency=low
 
-  * Non-maintainer upload.
+  [ Peter Drysdale ]
   * Commits from Jean-Philippe incorporated in master
   * Fix spelling and hyphen lintian problems
   * Move to dh style packaging
@@ -9,7 +9,11 @@ festival (1:2.1~release-2.2) UNRELEASED; urgency=low
   * Provide HTS compatibility module for HTS 2.1 voices (Closes: #589614)
   * General way of adding languages from Sergio Oller (Closes: #606173)
 
- -- Peter Drysdale <drysdalepete@gmail.com>  Wed, 26 Oct 2011 21:01:05 +1000
+  [ Samuel Thibault ]
+  * debian/rules: fix clean rules.
+  * debian/control: depend on quilt.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 08 Jan 2012 01:51:12 +0100
 
 festival (1:2.1~release-2.1) UNRELEASED; urgency=low
 
