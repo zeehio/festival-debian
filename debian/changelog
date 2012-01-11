@@ -23,6 +23,7 @@ festival (1:2.1~release-2) unstable; urgency=low
   * debian/control: depend on quilt.
 
   [ Jean-Philippe MENGUAL ]
+  * New maintainer. Closes #601596
   * Bump Standards-Version to 3.9.2 (no change needed)
   * Fixed debian/patches/lib_festival.scm.diff (desplays replaced with displays)
  
