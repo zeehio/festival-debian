@@ -3,6 +3,9 @@ festival (1:2.1~release-4) unstable; urgency=low
   [ Jean-Philippe MENGUAL ]
   * Added a new build-dep with libaudiofile-dev. Closes: #657597
 
+  [ Samuel Thibault ]
+  * Add myself as uploader.
+
  -- Jean-Philippe MENGUAL <texou@accelibreinfo.eu>  Sat, 28 Jan 2012 23:27:39 +0100
 
 festival (1:2.1~release-3) unstable; urgency=low
