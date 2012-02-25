@@ -14,7 +14,7 @@ Build-Depends: debhelper (>= 8),
                texinfo,
                quilt,
                libaudiofile-dev
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Homepage: http://www.cstr.ed.ac.uk/projects/festival/
 Vcs-Git: git://git.debian.org/git/tts/festival.git
 Vcs-Browser: http://git.debian.org/?p=tts/festival.git

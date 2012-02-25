@@ -1,3 +1,9 @@
+festival (1:2.1~release-5) UNRELEASED; urgency=low
+
+  * control: Bump Standards-Version to 3.9.3 (no changes).
+
+ -- Samuel Thibault <sthibault@debian.org>  Sat, 25 Feb 2012 17:37:01 +0100
+
 festival (1:2.1~release-4) unstable; urgency=low
 
   [ Jean-Philippe MENGUAL ]
