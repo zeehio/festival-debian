@@ -1,6 +1,11 @@
 festival (1:2.1~release-5) UNRELEASED; urgency=low
 
+  [ Samuel Thibault ]
   * control: Bump Standards-Version to 3.9.3 (no changes).
+
+  [ Peter Drysdale ]
+  * Change config to point to new location of multiarch speech_tools
+    during compile process. (Fixes FTBS with multiarch enabled speech_tools).
 
  -- Samuel Thibault <sthibault@debian.org>  Sat, 25 Feb 2012 17:37:01 +0100
 

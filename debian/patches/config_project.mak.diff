@@ -23,9 +23,9 @@ Index: b/config/project.mak
 -REQUIRED_LIBRARY_DIR_estools = $(EST)/lib
 -REQUIRED_LIBRARY_DIR_estbase = $(EST)/lib
 -REQUIRED_LIBRARY_DIR_eststring = $(EST)/lib
-+REQUIRED_LIBRARY_DIR_estools = /usr/lib
-+REQUIRED_LIBRARY_DIR_estbase = /usr/lib
-+REQUIRED_LIBRARY_DIR_eststring = /usr/lib
++REQUIRED_LIBRARY_DIR_estools = /usr/lib/$(DEB_HOST_MULTIARCH)
++REQUIRED_LIBRARY_DIR_estbase = /usr/lib/$(DEB_HOST_MULTIARCH)
++REQUIRED_LIBRARY_DIR_eststring = /usr/lib/$(DEB_HOST_MULTIARCH)
  
  REQUIRED_MAKE_INCLUDE = $(EST)/make.include
  
