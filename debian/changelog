@@ -1,4 +1,4 @@
-festival (1:2.1~release-5) UNRELEASED; urgency=low
+festival (1:2.1~release-5) unstable; urgency=low
 
   [ Samuel Thibault ]
   * control: Bump Standards-Version to 3.9.3 (no changes).
