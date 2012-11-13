@@ -1,3 +1,10 @@
+festival (1:2.1~release-6) unstable; urgency=low
+
+  [ Peter Drysdale ]
+  * Do not build EsounD support as ESD is long deprecated by Gnome.
+
+ -- Peter Drysdale <drysdalepete@gmail.com>  Mon, 25 Nov 2012 16:37:01 +0100
+
 festival (1:2.1~release-5) unstable; urgency=low
 
   [ Samuel Thibault ]
