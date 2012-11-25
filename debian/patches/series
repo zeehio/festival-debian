@@ -54,3 +54,4 @@ lintianspellpatch.diff
 hts21compat.diff
 languagespatch.diff
 dontbuildesd.diff
+pulseaudiosupport.diff

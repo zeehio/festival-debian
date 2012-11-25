@@ -1,0 +1,86 @@
+Index: festival/config/modules/Makefile
+===================================================================
+--- festival.orig/config/modules/Makefile	2012-11-25 11:54:20.000000000 +0100
++++ festival/config/modules/Makefile	2012-11-25 13:11:32.897954552 +0100
+@@ -42,7 +42,8 @@
+ 	freebsd16_audio.mak irix_audio.mak linux16_audio.mak \
+ 	sun16_audio.mak win32_audio.mak macosx_audio.mak \
+ 	mplayer_audio.mak nas_audio.mak esd_audio.mak native_audio.mak \
+-	 siod.mak wagon.mak scfg.mak wfst.mak ols.mak debugging.mak
++	siod.mak wagon.mak scfg.mak wfst.mak ols.mak debugging.mak \
++	pulse_audio.mak
+ 
+ FILES = Makefile descriptions $(RULESETS) 
+ 
+Index: festival/config/modules/pulse_audio.mak
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ festival/config/modules/pulse_audio.mak	2012-11-25 13:12:46.609957608 +0100
+@@ -0,0 +1,9 @@
++## Definitions for PulseAudio
++
++INCLUDE_PULSE_AUDIO=1
++
++MOD_DESC_PULSE_AUDIO=PulseAudio support
++
++#AUDIO_DEFINES += -DSUPPORT_PULSE
++#AUDIO_INCLUDES += -I$(PULSE_INCLUDE)
++#MODULE_LIBS += -lpulse-simple -lpulse
+Index: festival/config/systems/default.mak
+===================================================================
+--- festival.orig/config/systems/default.mak	2012-11-25 13:11:32.089954518 +0100
++++ festival/config/systems/default.mak	2012-11-25 13:11:32.901954552 +0100
+@@ -61,6 +61,12 @@
+ NAS_LIB = /usr/X11R6/lib
+ 
+ ###########################################################################
++## Where to find PulseAudio
++
++PULSE_INCLUDE = /usr/include
++PULSE_LIB = /usr/lib
++
++###########################################################################
+ ## Where to find Enlightenment Speech Demon
+ 
+ ESD_INCLUDE = /usr/local/include
+Index: festival/lib/init.scm
+===================================================================
+--- festival.orig/lib/init.scm	2012-11-25 13:11:32.445954534 +0100
++++ festival/lib/init.scm	2012-11-25 13:11:32.901954552 +0100
+@@ -74,6 +74,12 @@
+ 
+ ;;; Set default audio method
+ (cond
++ ((member 'nas *modules*)
++  (Parameter.def 'Audio_Method 'netaudio))
++((member 'pulseaudio *modules*)
++  (Parameter.def 'Audio_Method 'pulseaudio))
++ ((member 'esd *modules*)
++  (Parameter.def 'Audio_Method 'esdaudio))
+  ((member 'sun16audio *modules*)
+   (Parameter.def 'Audio_Method 'sun16audio))
+  ((member 'freebsd16audio *modules*)
+@@ -90,10 +96,6 @@
+   (Parameter.def 'Audio_Method 'os2audio))
+  ((member 'mplayeraudio *modules*)
+   (Parameter.def 'Audio_Method 'mplayeraudio))
+- ((member 'nas *modules*)
+-  (Parameter.def 'Audio_Method 'netaudio))
+- ((member 'esd *modules*)
+-  (Parameter.def 'Audio_Method 'esdaudio))
+  (t  ;; can't find direct support so guess that /dev/audio for 8k ulaw exists
+   (Parameter.def 'Audio_Method 'sunaudio)))
+ ;;;  If you have an external program to play audio add its definition
+Index: festival/src/arch/festival/festival.cc
+===================================================================
+--- festival.orig/src/arch/festival/festival.cc	2012-11-25 13:11:32.621954540 +0100
++++ festival/src/arch/festival/festival.cc	2012-11-25 13:11:32.901954552 +0100
+@@ -342,6 +342,8 @@
+ 	proclaim_module("nas");
+     if (esd_supported)
+ 	proclaim_module("esd");
++    if (pulse_supported)
++	proclaim_module("pulseaudio");
+     if (sun16_supported)
+ 	proclaim_module("sun16audio");
+     if (freebsd16_supported)
