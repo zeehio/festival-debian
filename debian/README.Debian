@@ -55,16 +55,30 @@ Festival for Debian
   Use with alsa/other sound system:
   ---------------------------------
 
-  We recommend that you use alsa. This is the default setting in
+  We recommend that you use alsa through aplay. This is the default setting in
   /etc/festival.scm. However, for non-Linux architectures, where ALSA
   is unavailable, the audio method can be changed by setting it in ~/.festivalrc, with:
   
-  (Parameter.set 'Audio_Method '<sound_system>)
+  (Param.set 'Audio_Method '<sound_system>)
 
   where <sound_system> is an appropriate sound system reference, such
   as freebsd16audio, mplayeraudio etc.
 
- -- Kumar Appaiah <akumar@debian.org>, Wed, 27 Oct 2010 09:07:45 -0500
+  A native PulseAudio module is also available, which can be selected
+  by setting in ~/.festivalrc:
+
+  (Param.set 'Audio_Method 'pulseaudio)
+
+  Additionally, a native ALSA sound module is also available on Linux architectures.
+  However this native module may underrun on some hardware. In order to enable it,
+  please set in ~/.festivalrc:
+
+  (Param.set 'Audio_Method 'linux16audio)
+
+  If an underrun occurs, a warning will be raised suggesting you to change back the
+  audio output module.
+
+ -- Sergio Oller <sergioller@gmail.com> Sat, 22 Dec 2012 17:18:40 +0100
 
   Use of HTS 2.1 compatibility module:
   ------------------------------------

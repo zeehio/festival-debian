@@ -6,7 +6,9 @@ festival (1:2.1~release-6) unstable; urgency=low
   [ Sergio Oller ]
   * Enable PulseAudio native support. Original implementation by
     Matthias Clasen.
-
+  * Enable ALSA native support.
+  * Updated README.Debian to reflect the new audio module options and
+    how to set them up.
 
  -- Peter Drysdale <drysdalepete@gmail.com>  Mon, 25 Nov 2012 16:37:01 +0100
 
