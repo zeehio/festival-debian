@@ -6,6 +6,9 @@ FDT := $(shell pwd)/debian/festival-dev
 DPKG_EXPORT_BUILDFLAGS = 1
 -include /usr/share/dpkg/buildflags.mk
 
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+export DEB_HOST_MULTIARCH
+
 override_dh_auto_configure:
 #Avoid conflicting with upstreams build system
 
