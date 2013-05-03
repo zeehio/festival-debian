@@ -5,7 +5,7 @@ festival (1:2.1~release-6) UNRELEASED; urgency=low
 
   [ Sergio Oller ]
   * Enable PulseAudio native support. Original implementation by
-    Matthias Clasen. Depends on libestools-2.1 (>=1:2.1~release-5).
+    Matthias Clasen. Depends on libestools-2.1 (>=1:2.1~release-6).
   * Enable ALSA native support.
   * Updated README.Debian to reflect the new audio module options and
     how to set them up.

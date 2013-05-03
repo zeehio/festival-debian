@@ -8,7 +8,7 @@ Uploaders: Kumar Appaiah <akumar@debian.org>,
  Samuel Thibault <sthibault@debian.org>
 Build-Depends: debhelper (>= 8),
                autotools-dev,
-               libestools2.1-dev (>= 1:2.1~release-5),
+               libestools2.1-dev (>= 1:2.1~release-6),
                libncurses5-dev,
                texinfo,
                quilt,
