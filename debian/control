@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Jean-Philippe MENGUAL <texou@accelibreinfo.eu>
 Uploaders: Kumar Appaiah <akumar@debian.org>,
  Jaldhar H. Vyas <jaldhar@debian.org>,
- Peter Drysdale <drysdalepete@gmail.com>,
  Samuel Thibault <sthibault@debian.org>
 Build-Depends: debhelper (>= 8),
                autotools-dev,
