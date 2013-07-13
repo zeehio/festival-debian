@@ -13,7 +13,7 @@ Build-Depends: debhelper (>= 8),
                quilt,
                libaudiofile-dev,
                dpkg-dev (>= 1.16.0)
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: http://www.cstr.ed.ac.uk/projects/festival/
 Vcs-Git: git://git.debian.org/git/tts/festival.git
 Vcs-Browser: http://git.debian.org/?p=tts/festival.git

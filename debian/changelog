@@ -10,6 +10,9 @@ festival (1:2.1~release-6) UNRELEASED; urgency=low
   * Updated README.Debian to reflect the new audio module options and
     how to set them up.
 
+  [ Samuel Thibault ]
+  * Bump Standards-Version to 3.9.4 (no changes).
+
  -- Peter Drysdale <drysdalepete@gmail.com>  Mon, 25 Nov 2012 16:37:01 +0100
 
 festival (1:2.1~release-5.1) unstable; urgency=low
