@@ -1,4 +1,4 @@
-festival (1:2.1~release-6) UNRELEASED; urgency=low
+festival (1:2.1~release-6) unstable; urgency=low
 
   [ Peter Drysdale ]
   * Do not build EsounD support as ESD is long deprecated by Gnome.
@@ -13,7 +13,7 @@ festival (1:2.1~release-6) UNRELEASED; urgency=low
   [ Samuel Thibault ]
   * Bump Standards-Version to 3.9.4 (no changes).
 
- -- Peter Drysdale <drysdalepete@gmail.com>  Mon, 25 Nov 2012 16:37:01 +0100
+ -- Samuel Thibault <sthibault@debian.org>  Sat, 13 Jul 2013 19:20:47 +0200
 
 festival (1:2.1~release-5.1) unstable; urgency=low
 
