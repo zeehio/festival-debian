@@ -55,3 +55,4 @@ hts21compat.diff
 languagespatch.diff
 dontbuildesd.diff
 pulseaudiosupport.diff
+hts_performance.diff

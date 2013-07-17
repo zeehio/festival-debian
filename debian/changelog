@@ -1,3 +1,11 @@
+festival (1:2.1~release-7) UNRELEASED; urgency=low
+
+  [ Sergio Oller ]
+  * Improved performance by reducing disk i/o on HTS voices and by avoiding 
+    redundant HTS model reloads.
+
+ -- Sergio Oller <sergioller@gmail.com>  Mon, 15 Jul 2013 17:33:02 +0200
+
 festival (1:2.1~release-6) unstable; urgency=low
 
   [ Peter Drysdale ]
