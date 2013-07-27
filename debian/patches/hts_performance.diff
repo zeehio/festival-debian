@@ -19,8 +19,8 @@ Author: Sergio Oller <sergioller@gmail.com>
 
 Index: festival/src/modules/hts_engine/fest2hts_engine.cc
 ===================================================================
---- festival.orig/src/modules/hts_engine/fest2hts_engine.cc	2013-07-17 19:38:41.746696421 +0200
-+++ festival/src/modules/hts_engine/fest2hts_engine.cc	2013-07-16 13:13:32.078371000 +0200
+--- festival.orig/src/modules/hts_engine/fest2hts_engine.cc	2013-07-27 14:10:08.225338808 +0200
++++ festival/src/modules/hts_engine/fest2hts_engine.cc	2013-07-27 14:12:41.181336266 +0200
 @@ -48,18 +48,23 @@
  #include <cstring>
  #include <cctype>
@@ -45,30 +45,50 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
     FILE *fp = fopen(name, opt);
  
     if (fp == NULL) {
-@@ -70,6 +75,22 @@
+@@ -70,6 +75,42 @@
     return (fp);
  }
  
 +static HTS_Engine *engine = NULL;
 +static const char *cached_voice = NULL;
 +
-+/* HTS_Engine_save_speech_ostream: write generated speech to ostream */
-+void HTS_Engine_save_speech_ostream(HTS_Engine * engine, std::ostream &os)
++/* HTS_Engine_save_label_ostream: output label with time */
++void HTS_Engine_save_label_ostream(HTS_Engine * engine, std::ostream &os)
 +{
-+   int i;
-+   short temp;
-+   HTS_GStreamSet *gss = &engine->gss;
++   int i, j;
++   int frame, state, duration;
 +
-+   for (i = 0; i < HTS_GStreamSet_get_total_nsample(gss); i++) {
-+      temp = HTS_GStreamSet_get_speech(gss, i);
-+      os.write((char*) &temp,sizeof(short));
++   HTS_Label *label = &engine->label;
++   HTS_SStreamSet *sss = &engine->sss;
++   const int nstate = HTS_ModelSet_get_nstate(&engine->ms);
++   const double rate =
++       engine->global.fperiod * 1e+7 / engine->global.sampling_rate;
++
++   for (i = 0, state = 0, frame = 0; i < HTS_Label_get_size(label); i++) {
++      for (j = 0, duration = 0; j < nstate; j++)
++         duration += HTS_SStreamSet_get_duration(sss, state++);
++      /* in HTK & HTS format */
++      os << (int) (frame * rate) << " "
++         << (int) ((frame + duration) * rate) << " "
++         << HTS_Label_get_string(label, i) << endl;
++      frame += duration;
 +   }
 +}
++
++/* HTS_Engine_steal_speech_pointer: Steal wave from GStream to reduce
++ * memory copying */
++static short int * HTS_Engine_steal_speech_pointer(HTS_Engine * engine)
++{
++   short int * rawwave = (&engine->gss)->gspeech;
++   (&engine->gss)->gspeech = NULL;
++   return rawwave;
++}
++
 +
  /* HTS_Synthesize_Utt: generate speech from utt by using hts_engine API */
  static LISP HTS_Synthesize_Utt(LISP utt)
  {
-@@ -84,12 +105,11 @@
+@@ -84,12 +125,11 @@
     char *fn_ms_gvl = NULL, *fn_ms_gvm = NULL;
     char *fn_ts_gvl = NULL, *fn_ts_gvm = NULL;
     char *fn_gv_switch = NULL;
@@ -82,7 +102,7 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
     int sampling_rate;
     int fperiod;
     double alpha;
-@@ -97,6 +117,12 @@
+@@ -97,6 +137,12 @@
     double beta;
     double uv_threshold;
  
@@ -95,7 +115,7 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
     /* get params */
     hts_engine_params =
         siod_get_lval("hts_engine_params",
-@@ -140,12 +166,15 @@
+@@ -140,13 +186,16 @@
  
     /* open input file pointers */
     labfp =
@@ -110,17 +130,19 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
 -   rawfp = Getfp(get_param_str("-or", hts_output_params, "tmp.raw"), "wb");
 -   lf0fp = Getfp(get_param_str("-of", hts_output_params, "tmp.lf0"), "wb");
 -   mcpfp = Getfp(get_param_str("-om", hts_output_params, "tmp.mgc"), "wb");
+-   durfp = Getfp(get_param_str("-od", hts_output_params, "tmp.lab"), "wb");
 +   rawfp = Getfp(get_param_str("-or", hts_output_params, NULL), "wb");
 +   lf0fp = Getfp(get_param_str("-of", hts_output_params, NULL), "wb");
 +   mcpfp = Getfp(get_param_str("-om", hts_output_params, NULL), "wb");
-    durfp = Getfp(get_param_str("-od", hts_output_params, "tmp.lab"), "wb");
++   durfp = Getfp(get_param_str("-od", hts_output_params, NULL), "wb");
  
     /* get other params */
-@@ -156,45 +185,66 @@
+    sampling_rate = (int) get_param_float("-s", hts_engine_params, 16000.0);
+@@ -156,45 +205,65 @@
     beta = (double) get_param_float("-b", hts_engine_params, 0.0);
     uv_threshold = (double) get_param_float("-u", hts_engine_params, 0.5);
  
-+   std::stringstream waveos(std::stringstream::in|std::stringstream::out|std::stringstream::binary);
++   std::stringstream labelstream(std::stringstream::in|std::stringstream::out);
 +   
     /* initialize */
 -   HTS_Engine_initialize(&engine, 2);
@@ -191,10 +213,10 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
        if (rawfp != NULL)
 -         HTS_Engine_save_generated_speech(&engine, rawfp);
 +         HTS_Engine_save_generated_speech(engine, rawfp);
-+      HTS_Engine_save_speech_ostream(engine, waveos);
        if (durfp != NULL)
 -         HTS_Engine_save_label(&engine, durfp);
 +         HTS_Engine_save_label(engine, durfp);
++      HTS_Engine_save_label_ostream(engine, labelstream);
        if (lf0fp != NULL)
 -         HTS_Engine_save_generated_parameter(&engine, lf0fp, 1);
 +         HTS_Engine_save_generated_parameter(engine, lf0fp, 1);
@@ -202,7 +224,6 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
 -         HTS_Engine_save_generated_parameter(&engine, mcpfp, 1);
 -      HTS_Engine_refresh(&engine);
 +         HTS_Engine_save_generated_parameter(engine, mcpfp, 1);
-+      HTS_Engine_refresh(engine);
     }
  
 -   /* free */
@@ -212,35 +233,52 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
  
     /* close output file pointers */
     if (rawfp != NULL)
-@@ -211,13 +261,13 @@
+@@ -211,37 +280,44 @@
        fclose(labfp);
  
     /* Load back in the waveform */
-+   EST_TokenStream ts;
-+   ts.open(waveos);
-    EST_Wave *w = new EST_Wave;
-    w->resample(sampling_rate);
+-   EST_Wave *w = new EST_Wave;
+-   w->resample(sampling_rate);
 -
++   const int numsamples = HTS_GStreamSet_get_total_nsample(&engine->gss);
++   short int * rawwave = HTS_Engine_steal_speech_pointer(engine);
++   EST_Wave *w;
     if (u->relation("Segment")->first()) /* only if there segments */
 -      w->load_file(get_param_str("-or", hts_output_params, "tmp.raw"), "raw",
-+      w->load_file(ts, "raw",
-                    sampling_rate, "short", str_to_bo("native"), 1);
--
+-                   sampling_rate, "short", str_to_bo("native"), 1);
++   {
++      w = new EST_Wave(numsamples, 1 /* one channel */,
++                       rawwave, 0, sampling_rate, 1 /* deallocate when destroyed */);
++   } else {
++      w = new EST_Wave;
++      w->resample(sampling_rate);
++   }
+ 
     item = u->create_relation("Wave")->append();
     item->set_val("wave", est_val(w));
  
-@@ -229,19 +279,18 @@
+    /* Load back in the segment times */
++   EST_TokenStream ts_label;
++   ts_label.open(labelstream);
+    EST_Relation *r = new EST_Relation;
+    EST_Item *s,*o;
+-   
+-   r->load(get_param_str("-od", hts_output_params, "tmp.lab"),"htk");
++   ts_label.seek(0);
++   r->load("tmp.lab", ts_label, "htk");
  
     for(o = r->first(), s = u->relation("Segment")->first() ; (o != NULL) && (s != NULL) ; o = o->next(), s = s->next() )
        if (o->S("name").before("+").after("-").matches(s->S("name")))
 -         s->set("end",o->F("end")); 
 +         s->set("end",o->F("end"));
        else
-          cerr << "HTS_Synthesize_Utt: Output segment mismatch";
+-         cerr << "HTS_Synthesize_Utt: Output segment mismatch";
 -
-+   ts.close();
++         cerr << "HTS_Synthesize_Utt: Output segment mismatch" << endl;
     delete r;
 -
++   HTS_Engine_refresh(engine);
++   ts_label.close();
     return utt;
  }
  
@@ -254,9 +292,9 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
  
 Index: festival/lib/hts.scm
 ===================================================================
---- festival.orig/lib/hts.scm	2012-11-25 13:34:09.294010784 +0100
-+++ festival/lib/hts.scm	2013-07-16 13:32:32.922418000 +0200
-@@ -58,31 +58,37 @@
+--- festival.orig/lib/hts.scm	2013-07-27 14:10:08.225338808 +0200
++++ festival/lib/hts.scm	2013-07-27 14:10:51.469338090 +0200
+@@ -58,199 +58,306 @@
  (defvar hts_use_phone_align 0)
  
  (defSynthType HTS
@@ -292,7 +330,7 @@ Index: festival/lib/hts.scm
 +	    ;(list "-om" mcepfile)
 +	    ;(list "-of" f0file)
 +	    ;(list "-or" wavfile)
-+		  (list "-od" labfile)
++		;(list "-od" labfile)
 +     )
  		)
  
@@ -304,14 +342,15 @@ Index: festival/lib/hts.scm
 -    (delete-file mcepfile)
 -    (delete-file f0file)
 -    (delete-file wavfile)
+-    (delete-file labfile)
 +    ;(delete-file featfile)
 +    ;(delete-file mcepfile)
 +    ;(delete-file f0file)
 +    ;(delete-file wavfile)
-     (delete-file labfile)
++    ;(delete-file labfile)
  
      (apply_hooks hts_synth_post_hooks utt)
-@@ -90,167 +96,268 @@
+     utt)
  )
  
  (define (hts_feats_output ofd s)
