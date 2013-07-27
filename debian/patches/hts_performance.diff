@@ -10,8 +10,8 @@ and most importantly the generated wavefile was saved to a temporal file and
 reloaded from that file in an unnecessary intermediate step.
 
 Now, by default speech parameters are not saved and deleted, HTS text features
-are passed using a string, and the generated wavefile is loaded using a 
-stringstream instead of a file.
+are passed using a string, and the generated wave data is passed to the
+utterance directly.
 
 This patch requires the tokenstream_istream.diff patch in speech-tools.
 
