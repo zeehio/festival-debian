@@ -1,0 +1,311 @@
+This patch adds the necessary LISP functions to Festival architecture
+to save waves by parts and write them to file pointers.
+
+It also rewrites text2wave in order to improve its performance, by removing
+the square order combine_waves function and using a linear replacement.
+
+This patch can be used (for instance by festival). On Festival-2.1 the way
+text2wave works is as follows: Given a long text, it is splitted in utterances
+which are saved in temporal files. At the end, all temporal files are loaded
+into memory and appended in memory one by one, and finally dumped to the 
+output file.
+This approach required double the disk i/o (temporal files and final file) and
+required to have the whole synthesized text loaded in memory.
+
+By using this patch, text2wave is improved so as utterances are written
+directly to the final file reducing both disk i/o and memory usage at once.
+
+Backwards compatibility is preserved.
+
+No copyright is claimed on this patch, in order to make it easier to 
+merge with upstream, although attribution is appreciated :-)
+
+Author: Sergio Oller <sergioller@gmail.com>
+
+Index: festival/examples/text2wave.sh
+===================================================================
+--- festival.orig/examples/text2wave.sh	2013-07-28 19:46:00.618142066 +0200
++++ festival/examples/text2wave.sh	2013-07-28 19:47:51.046146644 +0200
+@@ -63,6 +63,8 @@
+ (gc-status nil)
+ 
+ ;;; Default argument values
++(defvar fp nil)
++(defvar totalnumsamples 0)
+ (defvar outfile "-")
+ (defvar output_type 'riff)
+ (defvar frequency nil)  ;; default is no frequency modification
+@@ -70,6 +72,7 @@
+ (defvar mode nil)
+ (defvar volume "1.0")
+ (defvar wavefiles nil)
++(defvar an_utt nil)
+ 
+ ;;; Get options
+ (define (get_options)
+@@ -127,39 +130,40 @@
+   (format stderr "%s: %s\n" "text2wave" message)
+   (text2wave_help))
+ 
+-(define (save_record_wave utt)
++    
++(define (save_record_wave_fp utt)
+ "Saves the waveform and records its so it can be joined into a 
+ a single waveform at the end."
+-  (let ((fn (make_tmp_filename)))
+-    (utt.save.wave utt fn)
+-    (set! wavefiles (cons fn wavefiles))
+-    utt))
+-
+-(define (combine_waves)
+-  "Join all the waves together into the desired output file
+-and delete the intermediate ones."
+-  (let ((wholeutt (utt.synth (Utterance Text ""))))
+-    (mapcar
+-     (lambda (d) 
+-       (utt.import.wave wholeutt d t)
+-       (delete-file d))
+-     (reverse wavefiles))
+-    (if frequency
+-	(utt.wave.resample wholeutt (parse-number frequency)))
+-    (if (not (equal? volume "1.0"))
+-	(begin
+-	  (utt.wave.rescale wholeutt (parse-number volume))))
+-    (utt.save.wave wholeutt outfile output_type)
+-    ))
++  (if (eq? totalnumsamples 0)
++        (wave.save.header fp (utt.wave utt) output_type nil 
++                (list (list "numsamples" 0)))
++  )
++  (set! totalnumsamples (+ totalnumsamples 
++                           (get_param 'num_samples (wave.info (utt.wave utt)) 0)
++                        )
++  )
++  (if frequency
++	   (utt.wave.resample utt (parse-number frequency))
++  )
++  (if (not (equal? volume "1.0"))
++	  (begin
++	    (utt.wave.rescale utt (parse-number volume))
++    )
++  )
++  (wave.save.data.fp (utt.wave utt) fp output_type nil)
++  (set! an_utt utt)
++)
+ 
+ ;;;
+ ;;; Redefine what happens to utterances during text to speech 
+ ;;;
+-(set! tts_hooks (list utt.synth save_record_wave))
++(set! tts_hooks (list utt.synth save_record_wave_fp))
+ 
+ (define (main)
+   (get_options)
+ 
++  (set! fp (fopen outfile "wb"))
++
+   ;; do the synthesis
+   (mapcar
+    (lambda (f) 
+@@ -168,8 +172,12 @@
+ 	 (tts_file f (tts_find_text_mode f auto-text-mode-alist))))
+    text_files)
+ 
+-  ;; Now put the waveforms together at again
+-  (combine_waves)
++  ;; Now update the header
++  (fseek fp 0 0)
++  (wave.save.header fp (utt.wave an_utt) output_type nil 
++                (list (list "numsamples" totalnumsamples))
++  )
++  (fclose fp)
+ )
+ 
+ ;;;  Do the work
+Index: festival/src/arch/festival/wave.cc
+===================================================================
+--- festival.orig/src/arch/festival/wave.cc	2013-07-28 19:46:01.334142096 +0200
++++ festival/src/arch/festival/wave.cc	2013-07-28 19:49:23.850150491 +0200
+@@ -42,6 +42,7 @@
+ #include <cstdlib>
+ #include "festival.h"
+ #include "festivalP.h"
++#include "EST_Wave.h"
+ 
+ #ifdef WIN32
+ #include "winsock2.h"
+@@ -101,6 +102,141 @@
+     return truth;
+ }
+ 
++static LISP wave_save_data_fp(LISP lwave, LISP lfp, LISP ftype, LISP stype)
++{
++    EST_Wave *w = wave(lwave);
++    EST_String filetype,sampletype;
++    FILE * fp;
++    
++    fp = get_c_file(lfp, stdout);
++
++    if (ftype == NIL)
++    {
++	if (ft_get_param("Wavefiletype"))
++	    filetype = get_c_string(ft_get_param("Wavefiletype"));
++	else
++	    filetype = "nist";
++    }
++    else
++	filetype = get_c_string(ftype);
++    if (stype == NIL)
++    {
++	if (ft_get_param("Wavesampletype"))
++	    sampletype = get_c_string(ft_get_param("Wavesampletype"));
++	else
++	    sampletype = "short";
++    }
++    else
++	sampletype = get_c_string(stype);
++    
++    if (w->save_file_data(fp,filetype,sampletype,EST_NATIVE_BO) != write_ok)
++    {
++	cerr << "utt.save.wave.fp: failed to write wave" << endl;
++	festival_error();
++    }
++
++    return truth;
++}
++
++
++
++static LISP wave_save_fp(LISP lwave, LISP lfp, LISP ftype, LISP stype)
++{
++    EST_Wave *w = wave(lwave);
++    EST_String filetype,sampletype;
++    FILE * fp;
++    
++    fp = get_c_file(lfp, stdout);
++
++    if (ftype == NIL)
++    {
++	if (ft_get_param("Wavefiletype"))
++	    filetype = get_c_string(ft_get_param("Wavefiletype"));
++	else
++	    filetype = "nist";
++    }
++    else
++	filetype = get_c_string(ftype);
++    if (stype == NIL)
++    {
++	if (ft_get_param("Wavesampletype"))
++	    sampletype = get_c_string(ft_get_param("Wavesampletype"));
++	else
++	    sampletype = "short";
++    }
++    else
++	sampletype = get_c_string(stype);
++    
++    if (w->save_file(fp,filetype,sampletype,EST_NATIVE_BO) != write_ok)
++    {
++	cerr << "utt.save.wave.data.fp: failed to write wave" << endl;
++	festival_error();
++    }
++
++    return truth;
++}
++
++
++
++static LISP wave_save_header_fp(LISP arglist)
++{
++    LISP lfp = car(arglist);
++    arglist = cdr(arglist);
++    LISP lwave = car(arglist);
++    arglist = cdr(arglist);
++    LISP lftype = car(arglist);
++    arglist = cdr(arglist);
++    LISP lstype = car(arglist);
++    arglist = cdr(arglist);
++    LISP force_values = car(arglist);
++    arglist = cdr(arglist);
++
++    FILE *fp;
++    fp = get_c_file(lfp, NULL);
++    EST_String ftype, stype;
++    EST_Wave *w = wave(lwave);
++
++    int num_samples = w->num_samples();
++    int num_channels = w->num_channels();
++    int sample_rate = w->sample_rate();
++    int bo = EST_NATIVE_BO;
++    
++    num_samples = (int) get_param_float("numsamples", force_values, (float) num_samples);
++    num_channels = (int) get_param_float("numchannels", force_values, (float) num_channels);
++    sample_rate = (int) get_param_float("samplerate", force_values, (float) sample_rate);
++    bo = (int) get_param_float("bo", force_values, (float) bo);
++    
++    if (lftype == NIL)
++    {
++	    if (ft_get_param("Wavefiletype"))
++	        ftype = get_c_string(ft_get_param("Wavefiletype"));
++	    else
++	        ftype = "nist";
++    }
++    else
++	    ftype = get_c_string(lftype);
++    
++    if (lstype == NIL)
++    {
++        if (ft_get_param("Wavesampletype"))
++            stype = get_c_string(ft_get_param("Wavesampletype"));
++        else
++            stype = "short";
++    }
++    else
++        stype = get_c_string(lstype);
++    
++    
++    if (wave_io_save_header(fp, num_samples, num_channels,
++                        sample_rate, stype, bo, ftype) != write_ok)
++    {
++        cerr << "utt.save.wave.header: failed" << endl;
++	    festival_error();
++    }
++    
++    return truth;
++}
++
+ static LISP wave_load(LISP fname,LISP ftype,LISP stype,LISP srate)
+ {
+     EST_Wave *w = new EST_Wave;
+@@ -594,7 +730,31 @@
+ void festival_wave_init(void)
+ {
+     // declare utterance (wave) specific Lisp functions 
+-
++    init_lsubr("wave.save.header", wave_save_header_fp,
++ "(wave.save.header FILEPOINTER WAVE FILETYPE SAMPLETYPE OVERRIDEPARAMS)\n\
++  Write a wave header of format FILETYPE to FILEPOINTER.\n\
++  Header parameters are read first from WAVE and SAMPLETYPE,\n\
++  and can be overriden with OVERRIDEPARAMS\n\
++  OVERRIDEPARAMS = ( (\"numsamples\" 84000)\n\
++                     (\"numchannels\" 1)\n\
++                     (\"samplerate\" 16000)\n\
++                     (\"bo\" 10)\n\
++                     (\"numsamples\" 16000)\n\
++                    )");
++    init_subr_4("wave.save.fp", wave_save_fp,
++ "(wave.save.fp WAVE FILEPOINTER FILETYPE SAMPLETYPE)\n\
++  Write WAVE to FILEPOINTER, respecting FILETYPE and SAMPLETYPE if specified\n\
++  if these last two arguments are unspecified the global parameters\n\
++  Wavefiletype and Wavesampletype are used.  Returns t is successful\n\
++  and throws an error if not.");  
++    init_subr_4("wave.save.data.fp", wave_save_data_fp,
++ "(wave.save.data.fp WAVE FILEPOINTER FILETYPE SAMPLETYPE)\n\
++  Write WAVE to FILEPOINTER, respecting FILETYPE and SAMPLETYPE if specified\n\
++  ignoring any file header.\n\
++  if these last two arguments are unspecified the global parameters\n\
++  Wavefiletype and Wavesampletype are used.  Returns t is successful\n\
++  and throws an error if not. It can be used with wave.save.header\n\
++  in order to concatenate several waves.");  
+     init_subr_4("wave.save",wave_save,
+  "(wave.save WAVE FILENAME FILETYPE SAMPLETYPE)\n\
+   Save WAVE in FILENAME, respecting FILETYPE and SAMPLETYPE if specified\n\
