@@ -285,7 +285,7 @@ Index: festival/src/arch/festival/wave.cc
 + "(wave.save.header FILEPOINTER WAVE FILETYPE SAMPLETYPE OVERRIDEPARAMS)\n\
 +  Write a wave header of format FILETYPE to FILEPOINTER.\n\
 +  Header parameters are read first from WAVE and SAMPLETYPE,\n\
-+  and can be overriden with OVERRIDEPARAMS\n\
++  and can be overridden with OVERRIDEPARAMS\n\
 +  OVERRIDEPARAMS = ( (\"numsamples\" 84000)\n\
 +                     (\"numchannels\" 1)\n\
 +                     (\"samplerate\" 16000)\n\
