@@ -17,10 +17,8 @@ This patch requires the tokenstream_istream.diff patch in speech-tools.
 
 Author: Sergio Oller <sergioller@gmail.com>
 
-Index: festival/src/modules/hts_engine/fest2hts_engine.cc
-===================================================================
---- festival.orig/src/modules/hts_engine/fest2hts_engine.cc	2013-07-27 14:10:08.225338808 +0200
-+++ festival/src/modules/hts_engine/fest2hts_engine.cc	2013-07-27 14:12:41.181336266 +0200
+--- a/src/modules/hts_engine/fest2hts_engine.cc
++++ b/src/modules/hts_engine/fest2hts_engine.cc
 @@ -48,18 +48,23 @@
  #include <cstring>
  #include <cctype>
@@ -138,7 +136,7 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
  
     /* get other params */
     sampling_rate = (int) get_param_float("-s", hts_engine_params, 16000.0);
-@@ -156,45 +205,65 @@
+@@ -156,45 +205,66 @@
     beta = (double) get_param_float("-b", hts_engine_params, 0.0);
     uv_threshold = (double) get_param_float("-u", hts_engine_params, 0.5);
  
@@ -168,7 +166,8 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
 +        strcmp(cached_voice, current_voice)==0 ) {
 +      HTS_Engine_refresh(engine);
 +   } else {
-+      HTS_Engine_clear(engine);
++      if (cached_voice != NULL)
++           HTS_Engine_clear(engine);
 +      HTS_Engine_initialize(engine, 2);
 +      HTS_Engine_set_sampling_rate(engine, sampling_rate);
 +      HTS_Engine_set_fperiod(engine, fperiod);
@@ -233,7 +232,7 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
  
     /* close output file pointers */
     if (rawfp != NULL)
-@@ -211,37 +280,44 @@
+@@ -211,37 +281,44 @@
        fclose(labfp);
  
     /* Load back in the waveform */
@@ -290,10 +289,8 @@ Index: festival/src/modules/hts_engine/fest2hts_engine.cc
     HTS_get_copyright(buf);
     proclaim_module("hts_engine", buf);
  
-Index: festival/lib/hts.scm
-===================================================================
---- festival.orig/lib/hts.scm	2013-07-27 14:10:08.225338808 +0200
-+++ festival/lib/hts.scm	2013-07-27 14:10:51.469338090 +0200
+--- a/lib/hts.scm
++++ b/lib/hts.scm
 @@ -58,199 +58,306 @@
  (defvar hts_use_phone_align 0)
  
