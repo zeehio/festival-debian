@@ -57,3 +57,4 @@ dontbuildesd.diff
 pulseaudiosupport.diff
 hts_performance.diff
 improve_combine_waves.diff
+fix_mem_alloc.diff
