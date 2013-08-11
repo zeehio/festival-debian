@@ -45,6 +45,22 @@ Description: General multi-lingual speech synthesis system
  speech synthesis program. It is capable of producing clearly understandable
  speech from text.
 
+Package: festival-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: ${misc:Depends}, festival (= ${binary:Version})
+Description: General multi-lingual speech synthesis system -- debug symbols
+ Festival offers a full text to speech system with various APIs, as well an
+ environment for development and research of speech synthesis techniques. It
+ includes a Scheme-based command interpreter.
+ .
+ Besides research into speech synthesis, festival is useful as a stand-alone
+ speech synthesis program. It is capable of producing clearly understandable
+ speech from text.
+ .
+ This package contains the debugging symbols for festival.
+
 Package: festival-dev
 Architecture: any
 Depends: ${misc:Depends}, libestools2.1-dev (>= 1:2.1~release-8)

@@ -9,6 +9,7 @@ festival (1:2.1~release-7) UNRELEASED; urgency=low
       - Waves were temporary saved to disk and loaded from it.
         Now, disk output is reduced by half and disk input is 
         reduced to almost 0.
+  * Build festival-dbg package
 
  -- Sergio Oller <sergioller@gmail.com>  Mon, 15 Jul 2013 17:33:02 +0200
 
