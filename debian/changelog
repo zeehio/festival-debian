@@ -1,4 +1,4 @@
-festival (1:2.1~release-7) UNRELEASED; urgency=low
+festival (1:2.1~release-8) UNRELEASED; urgency=low
 
   [ Sergio Oller ]
   * Improved performance by reducing disk i/o on HTS voices and by avoiding
@@ -11,7 +11,10 @@ festival (1:2.1~release-7) UNRELEASED; urgency=low
         reduced to almost 0.
   * Build festival-dbg package
 
- -- Sergio Oller <sergioller@gmail.com>  Mon, 15 Jul 2013 17:33:02 +0200
+  [ Samuel Thibault ]
+  * Bump Standards-Version to 3.9.5 (no changes).
+
+ -- Samuel Thibault <sthibault@debian.org>  Mon, 28 Oct 2013 09:23:14 +0100
 
 festival (1:2.1~release-6) unstable; urgency=low
 
