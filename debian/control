@@ -70,3 +70,12 @@ Description: Development kit for the Festival speech synthesis system
  This package contains the static library and headers that can be used to
  develop programs that use Festival. Documentation is now contained in the
  separate festival-doc package.
+
+Package: festival-doc
+Architecture: all
+Depends: ${misc:Depends}, doc-base (>= 0.8.4)
+Section: doc
+Description: Documentation for Festival
+ This package contains the HTML and Postscript versions of the
+ documentation for Festival.
+

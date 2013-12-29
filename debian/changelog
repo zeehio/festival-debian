@@ -10,6 +10,7 @@ festival (1:2.1~release-8) UNRELEASED; urgency=low
         Now, disk output is reduced by half and disk input is 
         reduced to almost 0.
   * Build festival-dbg package
+  * Build festival-doc package
   * Language selection chooses only among installed voices supporting
     the requested language. (Closes: 732083)
 

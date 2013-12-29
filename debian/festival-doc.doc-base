@@ -1,0 +1,9 @@
+Document: festival-doc
+Title: Documentation for Festival
+Abstract: These documents contains the pre-built HTML and Postscript versions
+ of the documentation for Festival.
+Section: Help
+
+Format: HTML
+Index: /usr/share/doc/festival-doc/html/index.html
+Files: /usr/share/doc/festival-doc/html/*.html
