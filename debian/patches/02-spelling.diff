@@ -1,0 +1,67 @@
+This patch is part of a series of patches for festival for
+Debian GNU/Linux, to correct spelling
+
+Index: b/doc/festival.head
+===================================================================
+--- a/doc/festival.head
++++ b/doc/festival.head
+@@ -19,7 +19,7 @@
+ When in command mode input (from file or interactively) is interpreted
+ by the command interpreter.  When in tts mode input is rendered as 
+ speech.  When in command mode filenames that start with a left
+-paranthesis are treated as literal commands and evaluated.
++parenthesis are treated as literal commands and evaluated.
+ 
+ .SH OPTIONS
+ 
+Index: b/doc/festival_client.head
+===================================================================
+--- a/doc/festival_client.head
++++ b/doc/festival_client.head
+@@ -15,7 +15,7 @@
+ option 
+ .BI --server
+ 
+-festival-clinet allows waveforms ot be generated faster as not
++festival-client allows waveforms to be generated faster as not
+ time is required for start up.  See the festival manual for
+ more details on recommended use.
+ 
+diff -Naur b/src/arch/festival/wave.cc c/src/arch/festival/wave.cc
+--- b/src/arch/festival/wave.cc	2011-09-14 20:56:08.000000000 +1000
++++ c/src/arch/festival/wave.cc	2011-09-14 21:06:55.000000000 +1000
+@@ -597,7 +597,7 @@
+ 
+     init_subr_4("wave.save",wave_save,
+  "(wave.save WAVE FILENAME FILETYPE SAMPLETYPE)\n\
+-  Save WAVE in FILENAME, respecting FILETYPE and SAMPLETYPE if specifed\n\
++  Save WAVE in FILENAME, respecting FILETYPE and SAMPLETYPE if specified\n\
+   if these last two arguments are unspecified the global parameters\n\
+   Wavefiletype and Wavesampletype are used.  Returns t is successful\n\
+   and throws an error if not.");  
+diff -Naur b/src/modules/MultiSyn/UnitSelection.cc c/src/modules/MultiSyn/UnitSelection.cc
+--- b/src/modules/MultiSyn/UnitSelection.cc	2011-09-14 20:55:48.000000000 +1000
++++ c/src/modules/MultiSyn/UnitSelection.cc	2011-09-14 21:07:49.000000000 +1000
+@@ -468,7 +468,7 @@
+ 	CHECK_PTR(jc);
+       }
+       else
+-	EST_error( "du_voice_setJoinCost: currently t is the only supported second arguement" );
++	EST_error( "du_voice_setJoinCost: currently t is the only supported second argument" );
+       
+       duv->setJoinCost(jc,true);
+     }
+
+Index: b/lib/festival.scm
+===================================================================
+--- a/lib/festival.scm
++++ b/lib/festival.scm
+@@ -494,7 +494,7 @@
+ (If compiled with editline)
+   M-h               displays help on current symbol  
+   M-s               speaks help on current symbol  
+-  M-m               displays relevant manula page in local netscape
++  M-m               displays relevant manual page in local netscape
+   TAB               Command, symbol and filename completion
+   C-p or up-arrow   Previous command
+   C-b or left-arrow Move back one character

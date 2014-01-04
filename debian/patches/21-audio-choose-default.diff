@@ -1,0 +1,33 @@
+
+Index: b/lib/init.scm
+===================================================================
+--- a/lib/init.scm
++++ b/lib/init.scm
+@@ -74,10 +74,8 @@
+ 
+ ;;; Set default audio method
+ (cond
+- ((member 'nas *modules*)
+-  (Parameter.def 'Audio_Method 'netaudio))
+- ((member 'esd *modules*)
+-  (Parameter.def 'Audio_Method 'esdaudio))
++ ((member 'pulseaudio *modules*)
++  (Parameter.def 'Audio_Method 'pulseaudio))
+  ((member 'sun16audio *modules*)
+   (Parameter.def 'Audio_Method 'sun16audio))
+  ((member 'freebsd16audio *modules*)
+@@ -94,10 +92,12 @@
+   (Parameter.def 'Audio_Method 'os2audio))
+  ((member 'mplayeraudio *modules*)
+   (Parameter.def 'Audio_Method 'mplayeraudio))
++ ((member 'nas *modules*)
++  (Parameter.def 'Audio_Method 'netaudio))
+  (t  ;; can't find direct support so guess that /dev/audio for 8k ulaw exists
+   (Parameter.def 'Audio_Method 'sunaudio)))
+ ;;;  If you have an external program to play audio add its definition
+-;;;  in siteinit.scm
++;;;  in /etc/festival.scm
+ 
+ ;;; The audio spooler doesn't work under Windows so redefine audio_mode
+ (if (member 'mplayeraudio *modules*)
+

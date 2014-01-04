@@ -1,0 +1,29 @@
+Description: Fix memory allocation to refer to the intended types.
+Author: Peter Drysdale
+Forwarded: Yes
+Index: b/src/modules/hts_engine/HTS_pstream.c
+===================================================================
+--- a/src/modules/hts_engine/HTS_pstream.c
++++ b/src/modules/hts_engine/HTS_pstream.c
+@@ -335,7 +335,7 @@ void HTS_PStreamSet_create(HTS_PStreamSe
+       pst->win_l_width = (int *) HTS_calloc(pst->win_size, sizeof(int));
+       pst->win_r_width = (int *) HTS_calloc(pst->win_size, sizeof(int));
+       pst->win_coefficient =
+-          (double **) HTS_calloc(pst->win_size, sizeof(double));
++          (double **) HTS_calloc(pst->win_size, sizeof(double *));
+       for (j = 0; j < pst->win_size; j++) {
+          pst->win_l_width[j] = HTS_SStreamSet_get_window_left_width(sss, i, j);
+          pst->win_r_width[j] = HTS_SStreamSet_get_window_right_width(sss, i, j);
+Index: b/src/modules/hts_engine/HTS_sstream.c
+===================================================================
+--- a/src/modules/hts_engine/HTS_sstream.c
++++ b/src/modules/hts_engine/HTS_sstream.c
+@@ -245,7 +245,7 @@ void HTS_SStreamSet_create(HTS_SStreamSe
+       sst->win_l_width = (int *) HTS_calloc(sst->win_size, sizeof(int));
+       sst->win_r_width = (int *) HTS_calloc(sst->win_size, sizeof(int));
+       sst->win_coefficient =
+-          (double **) HTS_calloc(sst->win_size, sizeof(double));
++          (double **) HTS_calloc(sst->win_size, sizeof(double *));
+       for (j = 0; j < sst->win_size; j++) {
+          sst->win_l_width[j] = HTS_ModelSet_get_window_left_width(ms, i, j);
+          sst->win_r_width[j] = HTS_ModelSet_get_window_right_width(ms, i, j);

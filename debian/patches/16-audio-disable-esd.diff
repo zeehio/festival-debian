@@ -1,0 +1,19 @@
+Do not build EsounD support since it has been deprecated for years
+by Gnome. This is a Debian build system specific patch.
+
+--- a/config/modules/esd_audio.mak
++++ b/config/modules/esd_audio.mak
+@@ -38,12 +38,9 @@
+  ##                                                                       ##
+  ###########################################################################
+ 
+-INCLUDE_ESD_AUDIO=1
++INCLUDE_ESD_AUDIO=0
+ 
+ MOD_DESC_ESD_AUDIO=(from EST) Use ESD Audio
+ 
+-AUDIO_DEFINES += -DSUPPORT_ESD
+-AUDIO_INCLUDES += -I$(ESD_INCLUDE)
+-MODULE_LIBS += -L$(ESD_LIB) -lesd -laudiofile
+ 
+ 

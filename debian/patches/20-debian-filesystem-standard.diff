@@ -1,0 +1,405 @@
+Description: This patch modifies Festival for the Debian distribution
+ in order to make Festival compliant with Filesystem Hierarchy Standard.
+Index: b/lib/init.scm
+===================================================================
+--- a/lib/init.scm
++++ b/lib/init.scm
+@@ -36,7 +36,7 @@
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ ;;;  Basic siod library (need this before load_library or require works)
+-(load (path-append libdir "siod.scm"))
++(load (path-append datadir "siod.scm"))
+ 
+ (defvar home-directory (or (getenv "HOME") "/")
+   "home-directory
+    Place looked at for .festivalrc etc.")
+--- a/lib/voices.scm
++++ b/lib/voices.scm
+@@ -42,7 +42,7 @@
+ ;; The path to search for voices is created from the load-path with
+ ;; an extra list of directories appended.
+ 
+-(defvar system-voice-path '( )
++(defvar system-voice-path '("/usr/share/festival/voices/")
+   "system-voice-path
+    Additional directory not near the load path where voices can be
+    found, this can be redefined in lib/sitevars.scm if desired.")
+--- a/src/main/festival_main.cc
++++ b/src/main/festival_main.cc
+@@ -88,6 +88,8 @@
+         "In evaluation mode \"filenames\" starting with ( are evaluated inline\n"+
+ 	"Festival Speech Synthesis System: "+ festival_version +"\n"+
+ 	"-q            Load no default setup files\n"+
++	"--datadir <string>\n"+
++	"              Set data directory pathname\n"+
+ 	"--libdir <string>\n"+
+         "              Set library directory pathname\n"+
+         "-b            Run in batch mode (no interaction)\n"+
+@@ -127,6 +129,12 @@
+ 	festival_libdir = wstrdup(al.val("--libdir"));
+     else if (getenv("FESTLIBDIR") != 0)
+ 	festival_libdir = getenv("FESTLIBDIR");
++
++    if (al.present("--datadir"))
++	festival_datadir = wstrdup(al.val("--datadir"));
++    else if (getenv("FESTDATADIR") != 0)
++	festival_datadir = getenv("FESTDATADIR");
++
+     if (al.present("--heap"))
+ 	heap_size = al.ival("--heap");
+ 
+--- a/testsuite/data/modes.scm
++++ b/testsuite/data/modes.scm
+@@ -42,13 +42,13 @@
+ 
+ (format t "\n\nSABLE mode\n")
+ (unwind-protect
+- (tts (string-append libdir "/../examples/example2.sable") nil))
++ (tts "/usr/share/doc/festival/examples/example2.sable" 'sable))
+ (format t "\n\nOGI's mark up mode\n")
+ (unwind-protect 
+- (tts (string-append libdir "/../examples/ex1.ogi") 'ogimarkup))
++ (tts "/usr/share/doc/festival/examples/ex1.ogi" 'ogimarkup))
+ (format t "\n\nAn email mode\n")
+ (unwind-protect
+- (tts (string-append libdir "/../examples/ex1.email") nil))
++ (tts "/usr/share/doc/festival/examples/ex1.email" nil))
+ 
+ (voice_kal_diphone)
+ (format t "\n\nA singing mode\n")
+--- a/src/include/festival.h
++++ b/src/include/festival.h
+@@ -138,6 +138,7 @@
+ void add_item_features(EST_Item *s,LISP features);
+ 
+ extern const char *festival_libdir;
++extern const char *festival_datadir;
+ 
+ //  Module specific LISP/etc definitions
+ void festival_init_modules(void);
+--- a/examples/make_utts.sh
++++ b/examples/make_utts.sh
+@@ -44,7 +44,7 @@
+ ;;; Because this is a --script type file it has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+ (if (not (symbol-bound? 'caar))
+-    (load (path-append libdir "init.scm")))
++    (load (path-append datadir "init.scm")))
+ 
+ ;;;  Some parts are potentially editable
+ (defvar basic_relations '((Phrase segmental ())
+--- a/examples/latest.sh
++++ b/examples/latest.sh
+@@ -50,7 +50,7 @@
+ 
+ ;;; Because this is a --script type file I has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+-(load (path-append libdir "init.scm"))
++(load (path-append datadir "init.scm"))
+ 
+ (audio_mode 'async)  ;; play waves while continuing synthesis
+ 
+--- a/examples/benchmark
++++ b/examples/benchmark
+@@ -1,6 +1,7 @@
+ #!/bin/sh
+ 
+-default_libdir="/projects/festival/lib"
++default_libdir="/usr/lib/festival"
++default_datadir="/usr/share/festival"
+ 
+ while true
+ 	do
+@@ -11,13 +12,17 @@
+ 	-l ) libdir="$2"
+ 		shift 2
+ 		;;
++	-d ) datadir="$2"
++		shift 2
++		;;
++	-- ) shift; break ;;
+ 	* ) break;;
+ 	esac
+ done
+ 
+-text=${1-"$HOME/projects/festival/examples/benchmark.text"}
++text=${1-"/usr/share/doc/festival/examples/benchmark.text"}
+ 
+-for i in . src/main ../src/main $HOME/projects/festival/src/main /cstr/bin
++for i in /usr/bin . src/main ../src/main $HOME/projects/festival/src/main /cstr/bin
+ 	do
+ 	if [ -n "$festival" ]
+ 		then
+@@ -39,7 +44,15 @@
+ 	then
+ 	case $festival in 
+ 	*main/festival )	libdir=`dirname $festival`/../../lib;;
+-	* ) libdir=$default_libdir;;
++	* ) libdir=$default_libdir;
++	esac
++fi
++
++if [ -z "$datadir" ]
++	then
++	case $festival in 
++	*main/festival )   datadir=`dirname $festival`/../../share;;
++	* ) datadir=$default_datadir;;
+ 	esac
+ fi
+ 
+@@ -54,10 +67,11 @@
+ cat > $script <<__END__
+ 
+ (set! libdir "$libdir/")
+-(set! lexdir "$default_libdir/dicts/")
+-(set! voiced_dir "$default_libdir/voices/")
++(set! datadir "$datadir/")
++(set! lexdir "$default_datadir/dicts/")
++(set! voiced_dir "$default_datadir/voices/")
+ 
+-(load (string-append libdir "init.scm"))
++(load (string-append datadir "init.scm"))
+ (if (probe_file (format nil "%s/.festivalrc" (getenv "HOME")))
+     (load (format nil "%s/.festivalrc" (getenv "HOME"))))
+ 
+--- a/examples/benchmark.text
++++ b/examples/benchmark.text
+@@ -32,8 +32,13 @@
+ 
+      --libdir PATH
+ 	     Specify alternate to default library directory (used
+-	     in	 initializing  the  variable  load-path,  and for
+-	     loading most intinialisation files)
++	     for architecture-specific libraries and programs)
++
++     --datadir PATH
++	     Specify alternate to default shared-data directory (used
++	     in	 initializing the  variable  load-path,  and for
++	     loading most initialisation files). Typically, the voice and
++		 dictionary files reside here.
+ 
+      -b	or --batch
+ 	     Run in batch mode.	 In batch mode no input	 is  read
+--- a/examples/dumpfeats.sh
++++ b/examples/dumpfeats.sh
+@@ -39,7 +39,7 @@
+ 
+ ;;; Because this is a --script type file it has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+-(load (path-append libdir "init.scm"))
++(load (path-append datadir "init.scm"))
+ 
+ (define (dumpfeats_help)
+   (format t "%s\n"
+--- a/examples/durmeanstd.sh
++++ b/examples/durmeanstd.sh
+@@ -40,7 +40,7 @@
+ 
+ ;;; Because this is a --script type file it has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+-(load (path-append libdir "init.scm"))
++(load (path-append datadir "init.scm"))
+ 
+ (define (durmeanstd_help)
+   (format t "%s\n"
+--- a/examples/scfg_parse_text.sh
++++ b/examples/scfg_parse_text.sh
+@@ -45,7 +45,7 @@
+ 
+ ;;; Because this is a --script type file I has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+-(load (path-append libdir "init.scm"))
++(load (path-append datadir "init.scm"))
+ 
+ (require 'scfg)
+ 
+@@ -66,7 +66,7 @@
+ (gc-status nil)
+ 
+ ;;; Default argument values
+-(defvar grammarfile (path-append libdir "scfg_wsj_wp20.gram"))
++(defvar grammarfile (path-append datadir "scfg_wsj_wp20.gram"))
+ (defvar outfile "-")
+ (defvar outfd t)
+ (defvar parse_type 'brackets_only)
+--- a/examples/saytime.sh
++++ b/examples/saytime.sh
+@@ -44,7 +44,7 @@
+ 
+ ;;; Because this is a --script type file I has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+-(load (path-append libdir "init.scm"))
++(load (path-append datadir "init.scm"))
+ 
+ (define (get-the-time)
+ "Returns a list of hour and minute and second, for later processing"
+--- a/examples/text2pos.sh
++++ b/examples/text2pos.sh
+@@ -50,7 +50,7 @@
+ 
+ ;;; Because this is a --script type file I has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+-(load (path-append libdir "init.scm"))
++(load (path-append datadir "init.scm"))
+ 
+ (define (find-pos utt)
+ "Main function for processing TTS utterances.  Predicts POS and
+--- a/examples/text2wave.sh
++++ b/examples/text2wave.sh
+@@ -40,7 +40,7 @@
+ 
+ ;;; Because this is a --script type file I has to explicitly
+ ;;; load the initfiles: init.scm and user's .festivalrc
+-(load (path-append libdir "init.scm"))
++(load (path-append datadir "init.scm"))
+ 
+ ;;; Process command line arguments
+ (define (text2wave_help)
+--- a/lib/phrase.scm
++++ b/lib/phrase.scm
+@@ -93,7 +93,7 @@
+ 
+ (require 'pos)   ;; for part of speech map
+ 
+-(defvar pbreak_ngram_dir libdir
++(defvar pbreak_ngram_dir datadir
+   "pbreak_ngram_dir
+   The directory containing the ngram models for predicting phrase
+   breaks.  By default this is the standard library directory.")
+--- a/lib/soleml-mode.scm
++++ b/lib/soleml-mode.scm
+@@ -330,7 +330,7 @@
+        (list 'exit_func soleml_exit_func)
+        '(analysis_type xxml)
+        (list 'filter 
+-	     (format nil "%s -D %s " sgml_parse_progname libdir))))
++	     (format nil "%s -D %s " sgml_parse_progname datadir))))
+     tts_text_modes))
+ 
+ (provide 'soleml-mode)
+--- a/lib/lexicons.scm
++++ b/lib/lexicons.scm
+@@ -42,10 +42,10 @@
+ ;;;  you should set lexdir in sitevars.scm
+ 
+ (defvar lexdir 
+-  (if (probe_file (path-append libdir "dicts"))
+-      (path-append libdir "dicts/")
++  (if (probe_file (path-append datadir "dicts"))
++      (path-append datadir "dicts/")
+       ;; else we'll guess we're in the CSTR filespace
+-      (path-as-directory "/projects/festival/lib/dicts/"))
++      (path-as-directory "/usr/share/festival/dicts/"))
+   "lexdir
+   The directory where the lexicon(s) are, by default.")
+ 
+--- a/lib/festival.scm
++++ b/lib/festival.scm
+@@ -552,13 +552,13 @@
+ (define (intro)
+ "(intro)
+  Synthesize an introduction to the Festival Speech Synthesis System."
+-  (tts (path-append libdir "../examples/intro.text") nil))
++  (tts (path-append datadir "/usr/share/doc/festival/examples/intro.text") nil))
+ 
+ (define (intro-spanish)
+ "(intro-spanish)
+  Synthesize an introduction to the Festival Speech Synthesis System
+  in spanish.  Spanish voice must already be selected for this."
+-  (tts (path-append libdir "../examples/spintro.text") nil))
++  (tts (path-append datadir "/usr/share/doc/festival/examples/spintro.text") nil))
+ 
+ (define (na_play FILENAME)
+ "(play_wave FILENAME)
+--- a/src/arch/festival/Makefile
++++ b/src/arch/festival/Makefile
+@@ -62,6 +62,6 @@
+ LOCAL_INCLUDES += $(FESTIVAL_INCLUDES)
+ 
+ festival.o: festival.cc
+-	$(CXX_COMMAND_TEMPLATES) -DFTNAME='$(PROJECT_NAME)' -DFTLIBDIRC='$(FTLIBDIR)' -DFTVERSION='$(PROJECT_VERSION)' -DFTSTATE='$(PROJECT_STATE)'  -DFTDATE='$(PROJECT_DATE)' -DFTOSTYPE=\"$(SYSTEM_TYPE)\" festival.cc
++	$(CXX_COMMAND_TEMPLATES) -DFTNAME='$(PROJECT_NAME)' -DFTVERSION='$(PROJECT_VERSION)' -DFTSTATE='$(PROJECT_STATE)'  -DFTDATE='$(PROJECT_DATE)' -DFTOSTYPEC='$(SYSTEM_TYPE)' festival.cc
+ 
+ 
+--- a/src/arch/festival/audspio.cc
++++ b/src/arch/festival/audspio.cc
+@@ -108,7 +108,7 @@
+ 	{
+ 	    audio = ft_get_param("Audio_Method");
+ 	    command = ft_get_param("Audio_Command");
+-	    audfds = pipe_open("audsp");
++	    audfds = pipe_open("/usr/lib/festival/audsp");
+ 	    if (audio != NIL)
+ 		audsp_send(EST_String("method ")+get_c_string(audio));
+ 	    if (command != NIL)
+--- a/src/arch/festival/festival.cc
++++ b/src/arch/festival/festival.cc
+@@ -55,6 +55,9 @@
+ #define STRINGIZE(S) _S_S_S(S)
+ 
+ const char *festival_version =  STRINGIZE(FTVERSION) ":" STRINGIZE(FTSTATE) " " STRINGIZE(FTDATE);
++const char *festival_libdir = "/usr/lib/festival";
++const char *festival_datadir = "/usr/share/festival";
++const char *festival_sysconfdir = "/etc";
+ 
+ // Allow the path to be passed in without quotes because Windoze command line
+ // is stupid
+@@ -74,7 +77,6 @@
+ #define FTOSTYPE ""
+ #endif
+ 
+-const char *festival_libdir = FTLIBDIR;
+ ostream *cdebug;
+ static int festival_server_port = 1314;
+ static EST_StrList sub_copyrights;
+@@ -302,7 +304,7 @@
+     EST_String userinitfile, home_str, initfile;
+ 
+     // Load library init first
+-    initfile = (EST_String)EST_Pathname(festival_libdir).as_directory() + 
++    initfile = (EST_String)EST_Pathname(festival_datadir).as_directory() +
+ 	"init.scm";
+     if (access((const char *)initfile,R_OK) == 0)
+ 	vload(initfile,FALSE);
+@@ -318,6 +320,8 @@
+     int major,minor,subminor;
+     
+     siod_set_lval("libdir",strintern(festival_libdir));
++    siod_set_lval("datadir",strintern(festival_datadir));
++    siod_set_lval("sysconfdir",strintern(festival_sysconfdir));
+     if (!streq(FTOSTYPE,""))
+ 	siod_set_lval("*ostype*",cintern(FTOSTYPE));
+     siod_set_lval("festival_version",
+@@ -353,6 +357,7 @@
+     if (mplayer_supported)
+ 	proclaim_module("mplayeraudio");
+     
++#if 0 /* /usr/lib/festival/etc/machine -- ??? */
+     // Add etc-dir path and machine specific directory etc/$OSTYPE
+     char *etcdir = walloc(char,strlen(festival_libdir)+strlen("etc/")+
+ 			  strlen(FTOSTYPE)+3);
+@@ -373,6 +378,7 @@
+     
+     wfree(etcdir);
+     wfree(etcdircommon);
++#endif
+     return;
+ }
+ 
+Index: b/examples/Makefile
+===================================================================
+--- a/examples/Makefile
++++ b/examples/Makefile
+@@ -54,8 +54,9 @@
+ 
+ $(ALL) : % : %.sh
+ 	rm -f $@
+-	@echo "#!/bin/sh" >$@
+-	@echo "\"true\" ; exec "$(FESTIVAL_HOME)/bin/festival --script '$$0 $$*' >>$@
++	@echo "#!/usr/bin/festival --script" >$@
++#	@echo "#!/bin/sh" >$@
++#	@echo "\"true\" ; exec "/usr/bin/festival --script '$$0 $$*' >>$@
+ 	cat $< >>$@
+ 	chmod +x $@
+ 

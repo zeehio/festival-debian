@@ -1,0 +1,55 @@
+Add a native PulseAudio audio module.
+This patch was originally developped by Matthias Clasen and submitted to:
+http://www.redhat.com/archives/fedora-extras-commits/2009-September/msg09311.html
+This patch depends on pulseaudiosupport.diff patch in speech-tools.
+
+--- a/config/modules/Makefile
++++ b/config/modules/Makefile
+@@ -42,7 +42,8 @@
+ 	freebsd16_audio.mak irix_audio.mak linux16_audio.mak \
+ 	sun16_audio.mak win32_audio.mak macosx_audio.mak \
+ 	mplayer_audio.mak nas_audio.mak esd_audio.mak native_audio.mak \
+-	 siod.mak wagon.mak scfg.mak wfst.mak ols.mak debugging.mak
++	siod.mak wagon.mak scfg.mak wfst.mak ols.mak debugging.mak \
++	pulse_audio.mak
+ 
+ FILES = Makefile descriptions $(RULESETS) 
+ 
+--- /dev/null
++++ b/config/modules/pulse_audio.mak
+@@ -0,0 +1,9 @@
++## Definitions for PulseAudio
++
++INCLUDE_PULSE_AUDIO=1
++
++MOD_DESC_PULSE_AUDIO=PulseAudio support
++
++#AUDIO_DEFINES += -DSUPPORT_PULSE
++#AUDIO_INCLUDES += -I$(PULSE_INCLUDE)
++#MODULE_LIBS += -lpulse-simple -lpulse
+--- a/config/systems/default.mak
++++ b/config/systems/default.mak
+@@ -61,6 +61,12 @@
+ NAS_LIB = /usr/X11R6/lib
+ 
+ ###########################################################################
++## Where to find PulseAudio
++
++PULSE_INCLUDE = /usr/include
++PULSE_LIB = /usr/lib
++
++###########################################################################
+ ## Where to find Enlightenment Speech Demon
+ 
+ ESD_INCLUDE = /usr/local/include
+--- a/src/arch/festival/festival.cc
++++ b/src/arch/festival/festival.cc
+@@ -338,6 +338,8 @@
+ 	proclaim_module("nas");
+     if (esd_supported)
+ 	proclaim_module("esd");
++    if (pulse_supported)
++	proclaim_module("pulseaudio");
+     if (sun16_supported)
+ 	proclaim_module("sun16audio");
+     if (freebsd16_supported)
